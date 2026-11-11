@@ -72,6 +72,88 @@ button:active,.levels button:active{transform:translate(2px,2px);box-shadow:1px 
 .wire-color{display:flex;align-items:center;gap:6px;padding:7px 9px!important;font-size:19px!important;color:var(--wire)!important;background:#fff!important;border:2px solid #172544!important}
 .wire-color small{font-size:11px;color:#172544}
 .wire-color.selected{outline:3px solid #ffd43b;box-shadow:0 0 0 5px #172544}
+
+/* ===== Tema 3D gibi azul SENAI: aplicação completa ===== */
+:root{
+ --bg:#d9e0e8;--panel:#f7f2e8;--line:#12376b;--blue:#0876d8;
+ --yellow:#ffc928;--red:#df3b36;--muted:#d5e4f5;
+}
+body{
+ background:radial-gradient(ellipse at 50% 0%,#f5ead4 0%,#d6dce4 55%,#b9c5d3 100%);
+ color:#102b50;font-family: "Trebuchet MS",system-ui,sans-serif;
+}
+header{
+ position:relative;overflow:hidden;
+ background:linear-gradient(115deg,#063b82 0%,#0875d1 58%,#063b82 100%);
+ color:#fff;border-bottom:6px solid #ffc928;
+ box-shadow:0 7px 0 #102b50,0 12px 24px #102b5040;
+ padding:22px 14px 25px;
+}
+header:after{
+ content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;
+ background:repeating-linear-gradient(135deg,transparent 0 16px,#fff 17px 18px);
+}
+header .bolt{position:relative;z-index:1;background:linear-gradient(145deg,#fff6c8,#ffc928);color:#12376b;border:4px solid #102b50;box-shadow:4px 5px 0 #061c3b}
+header h1{position:relative;z-index:1;font-size:clamp(27px,5vw,46px);letter-spacing:1px;text-shadow:3px 4px 0 #062b5a}
+header p{position:relative;z-index:1;color:#eaf5ff;font-weight:800}
+main{max-width:1120px;gap:17px}
+.card{
+ background:linear-gradient(145deg,#fffdf7,#eee6d7);color:#102b50;
+ border:3px solid #12376b;border-radius:18px;
+ box-shadow:0 5px 0 #0a2a54,0 12px 24px #102b5022;
+}
+.card h2{color:#075eb1;text-shadow:0 1px #fff;font-weight:1000}
+.muted{color:#405875}
+.pill{background:linear-gradient(#ffe98c,#ffc928);color:#17345b;border:2px solid #12376b;box-shadow:2px 3px 0 #0a2a54}
+button,.levels button{
+ background:linear-gradient(180deg,#238be5,#0755ad);color:#fff;
+ border:2px solid #092f65;border-radius:12px;font-weight:900;
+ box-shadow:0 4px 0 #082653,0 7px 12px #102b5028;
+}
+button:hover,.levels button:hover{filter:brightness(1.08)}
+button:active,.levels button:active{transform:translateY(3px);box-shadow:0 1px 0 #082653}
+.levels button.active,button.primary{
+ background:linear-gradient(180deg,#ffdf58,#ffb900);color:#142d50;border-color:#102b50;
+}
+.progress{background:#d4deea;border:2px solid #12376b}
+.progress span{background:linear-gradient(90deg,#ffb900,#f05b35)}
+.board-wrap{
+ background:linear-gradient(135deg,#c9c4b9,#eee7d9 48%,#bcb7ad);
+ border:5px solid #12376b;box-shadow:inset 0 0 0 3px #fff,0 5px 0 #092653,0 10px 20px #102b5030;
+ border-radius:16px;
+}
+.board .node{fill:#f8f5ee;stroke:#314b69;stroke-width:3}
+.board .terminal{fill:#d7a642;stroke:#6b4b17;stroke-width:3;filter:drop-shadow(1px 2px 1px #3338)}
+.board .terminal.active{fill:#ffdf45;stroke:#b52d26;stroke-width:4}
+.board text{fill:#102b50;font-weight:1000}
+.board .sub{fill:#43566e}
+.board .wire{stroke-width:7;filter:drop-shadow(1px 2px 1px #0005)}
+.board .wire.correct{stroke:#ffc928;stroke-width:8}
+.status{background:linear-gradient(145deg,#fff,#edf4fb);border:3px solid #12376b;color:#102b50;box-shadow:0 3px 0 #0a2a54;font-weight:800}
+.status.ok{background:#fff3b8;border-color:#b78300;color:#654900}
+.status.bad{background:#ffe3e0;border-color:#d33b35;color:#8e211d}
+.comic-mascot{background:linear-gradient(120deg,#06488f,#0878d4);color:#fff;border:3px solid #092e62;box-shadow:0 5px 0 #092653,0 10px 20px #102b5028}
+.mascot-avatar{background:linear-gradient(145deg,#fff4b5,#ffc928);border:3px solid #092e62;box-shadow:3px 4px 0 #061e43}
+.speech{background:#fff;color:#12345b;border:3px solid #092e62;box-shadow:3px 4px 0 #061e43}
+.speech:before{background:#fff;border-left:3px solid #092e62;border-bottom:3px solid #092e62}
+.wire-palette{background:linear-gradient(145deg,#063c7d,#075eae);border:3px solid #092e62;box-shadow:0 4px 0 #092653}
+.wire-palette strong{color:#fff}
+.wire-color{background:linear-gradient(#fff,#e8eef5)!important;border-color:#092e62!important;box-shadow:0 2px 0 #092653!important}
+.wire-color small{color:#17345b}
+.wire-color.selected{outline:3px solid #ffc928;box-shadow:0 0 0 5px #092e62!important}
+.actions a{font-weight:900!important;box-shadow:0 4px 0 #092653}
+.safety{border-left:8px solid #e6a900;background:linear-gradient(145deg,#fff8dc,#f5ebca)}
+.footer{color:#243e5e}
+.install-btn{background:linear-gradient(#ffe36a,#ffbf00)!important;color:#102b50!important}
+@media(max-width:600px){
+ header{padding:15px 10px 19px}
+ header .bolt{width:58px;height:58px;font-size:32px}
+ main{padding:12px 10px}
+ .card{border-width:2px;box-shadow:0 4px 0 #0a2a54,0 8px 16px #102b5020}
+ .board-wrap{border-width:3px}
+ .comic-mascot{box-shadow:0 4px 0 #092653}
+}
+
 </style></head>
 <body>
 <header><div class="bolt">⚡</div><h1>ELETRICISTA MASTER</h1><p>Laboratório virtual de instalações elétricas • Trilha de aprendizagem SENAI</p><button id="installApp" class="install-btn" onclick="installEletricista()">＋ Instalar no celular</button></header>
