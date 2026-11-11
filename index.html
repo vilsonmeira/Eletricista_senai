@@ -38,7 +38,7 @@ button:active,.levels button:active{transform:translate(2px,2px);box-shadow:1px 
 .progress span{background:#e63946}
 .board-wrap{background:#dcecff;border:3px solid #172544;box-shadow:inset 0 0 0 3px #fff;border-radius:14px}
 .board .node{fill:#fff8df;stroke:#172544;stroke-width:3}
-.board .terminal{fill:#174ea6;stroke:#172544;stroke-width:3}
+.board .terminal{fill:#174ea6;stroke:#172544;stroke-width:3;pointer-events:all;cursor:pointer}
 .board .terminal.active{fill:#ffd43b}
 .board text{fill:#172544;font-weight:900}
 .board .sub{fill:#42516b}
@@ -79,7 +79,7 @@ button:active,.levels button:active{transform:translate(2px,2px);box-shadow:1px 
 <section class="comic-mascot"><div class="mascot-avatar" aria-hidden="true">👷‍♂️</div><div class="speech">Fala, eletricista! Eu sou seu parceiro de bancada. Vamos aprender ligação por ligação, ganhar pontos e dominar cada fase com segurança! ⚡</div></section>
 <section class="card"><div class="top"><div><h2>Painel de aprendizagem</h2><span class="muted">Conecte os terminais no quadro virtual e confira seu circuito.</span></div><div class="pill">⭐ Pontos: <strong id="score">0</strong></div></div><div class="progress"><span id="progress"></span></div><p class="muted" id="progressText">0 de 5 desafios concluídos</p><div class="levels" id="levels"></div></section>
 <section class="card"><div class="top"><div><h2 id="title"></h2><span class="muted" id="description"></span></div><span class="pill" id="difficulty"></span></div>
-<div class="legend"><span><i class="dot"></i> Terminal disponível</span><span>Escolha a cor e arraste o fio entre os terminais.</span></div>
+<div class="legend"><span><i class="dot"></i> Terminal disponível</span><span>Escolha uma cor e toque em dois terminais para conectar o fio.</span></div>
 <div class="wire-palette" id="wirePalette" aria-label="Cores dos condutores">
 <strong>Cor do fio:</strong>
 <button type="button" class="wire-color selected" data-color="black" style="--wire:#222222">● <small>Fase preta</small></button>
@@ -123,25 +123,19 @@ function draw(){
  const pin=document.createElementNS("http://www.w3.org/2000/svg","circle");pin.setAttribute("cx",n[2]);pin.setAttribute("cy",n[3]+31);pin.setAttribute("r",10);pin.setAttribute("class","terminal"+(dragFrom===n[0]?" active":""));pin.dataset.id=n[0];g.appendChild(pin);nodes.appendChild(g)});
 }
 const wireColors={black:"#222222",brown:"#8b4513",gray:"#777777",blue:"#1687e8","green-yellow":"#20a34a",red:"#e63946"};
-function terminalAtPoint(e){
- const svg=$("board"),pt=svg.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;
- const p=pt.matrixTransform(svg.getScreenCTM().inverse());
- let nearest=null,best=Infinity;
- challenges[current].nodes.forEach(n=>{const dx=p.x-n[2],dy=p.y-(n[3]+31),d=Math.hypot(dx,dy);if(d<best){best=d;nearest=n}});
- return best<30?{dataset:{id:nearest[0]}}:null;
-}
-$("wirePalette").addEventListener("click",e=>{const b=e.target.closest("[data-color]");if(!b)return;selectedColor=b.dataset.color;document.querySelectorAll(".wire-color").forEach(x=>x.classList.toggle("selected",x===b));});
-$("board").addEventListener("pointerdown",e=>{
- const pin=terminalAtPoint(e);if(!pin)return;
- e.preventDefault();
- if(!dragFrom){dragFrom=pin.dataset.id;draw();}
+$("wirePalette").addEventListener("click",e=>{
+ const b=e.target.closest("[data-color]");if(!b)return;
+ selectedColor=b.dataset.color;
+ document.querySelectorAll(".wire-color").forEach(x=>x.classList.toggle("selected",x===b));
+ show("","Cor selecionada: "+b.innerText.trim()+". Agora toque em dois terminais para colocar o fio.");
 });
-window.addEventListener("pointerup",e=>{
- if(!dragFrom)return;
- const pin=terminalAtPoint(e);
- if(pin&&pin.dataset.id!==dragFrom){addConnection(dragFrom,pin.dataset.id);dragFrom=null;draw();}
+$("board").addEventListener("click",e=>{
+ const pin=e.target.closest(".terminal");if(!pin)return;
+ const id=pin.dataset.id;
+ if(!dragFrom){dragFrom=id;draw();show("","Terminal "+id+" selecionado. Agora toque no segundo terminal.");return;}
+ if(id===dragFrom){dragFrom=null;draw();show("","Seleção cancelada. Toque no primeiro terminal novamente.");return;}
+ addConnection(dragFrom,id);dragFrom=null;draw();
 });
-window.addEventListener("pointercancel",()=>{dragFrom=null;draw();});
 function addConnection(a,b){const k=key(a,b);if(connections.some(x=>key(x.a,x.b)===k)){show("bad","Essa ligação já existe. Escolha outro par de terminais.");return}connections.push({a,b,color:selectedColor});$("status").className="status";$("status").innerHTML='<span class="lamp"></span> Fio '+selectedColor+' conectado. Continue montando o circuito.'}
 function expectedRole(a,b){const pair=key(a,b),level=current+1;
  if(level===1){if(pair===key("F","S"))return "phase";if(pair===key("L","N"))return "neutral";return "return"}
@@ -150,7 +144,7 @@ function expectedRole(a,b){const pair=key(a,b),level=current+1;
  if(pair===key("F","P1C"))return "phase";if(pair===key("L","N"))return "neutral";return "return";
 }
 function colorMatches(color,role){if(role==="phase")return ["black","brown","gray"].includes(color);if(role==="neutral")return color==="blue";if(role==="pe")return color==="green-yellow";return color==="red"}
-function render(){const c=challenges[current];$("title").textContent=c.title;$("description").textContent=c.desc;$("difficulty").textContent=c.difficulty;connections=[];dragFrom=null;draw();$("status").className="status";$("status").innerHTML='<span class="lamp"></span> Escolha a cor do condutor acima. Arraste entre dois terminais ou toque em dois terminais.';$("next").disabled=!done.has(current);$("next").textContent=current===4?"Trilha concluída ✓":"Próximo nível →";$("levels").innerHTML=challenges.map((x,i)=>'<button data-level="'+i+'" class="'+(i===current?'active':'')+'">'+(done.has(i)?"✓ ":"")+"Nível "+(i+1)+'</button>').join("");document.querySelectorAll("[data-level]").forEach(b=>b.onclick=()=>{current=Number(b.dataset.level);render()});updateProgress()}
+function render(){const c=challenges[current];$("title").textContent=c.title;$("description").textContent=c.desc;$("difficulty").textContent=c.difficulty;connections=[];dragFrom=null;draw();$("status").className="status";$("status").innerHTML='<span class="lamp"></span> Escolha uma cor acima e toque em dois terminais, um de cada vez, para conectar o fio.';$("next").disabled=!done.has(current);$("next").textContent=current===4?"Trilha concluída ✓":"Próximo nível →";$("levels").innerHTML=challenges.map((x,i)=>'<button data-level="'+i+'" class="'+(i===current?'active':'')+'">'+(done.has(i)?"✓ ":"")+"Nível "+(i+1)+'</button>').join("");document.querySelectorAll("[data-level]").forEach(b=>b.onclick=()=>{current=Number(b.dataset.level);render()});updateProgress()}
 function updateProgress(){$("score").textContent=score;$("progress").style.width=(done.size/challenges.length*100)+"%";$("progressText").textContent=done.size+" de "+challenges.length+" desafios concluídos"}
 function show(type,msg){$("status").className="status "+type;$("status").innerHTML='<span class="lamp '+(type==="ok"?"ok":type==="bad"?"bad":"")+'"></span>'+msg}
 $("check").onclick=()=>{const expected=challenges[current].edges.map(e=>key(e[0],e[1]));const actual=connections.map(e=>key(e.a,e.b));const missing=expected.filter(e=>!actual.includes(e));const extra=actual.filter(e=>!expected.includes(e));const wrongColors=connections.filter(e=>expected.includes(key(e.a,e.b))&&!colorMatches(e.color,expectedRole(e.a,e.b)));if(missing.length||extra.length||wrongColors.length){show("bad","Confira o circuito: faltam "+missing.length+" ligação(ões), há "+extra.length+" ligação(ões) extras e "+wrongColors.length+" fio(s) com cor inadequada. Fase: preto/marrom/cinza; neutro: azul-claro; PE: verde ou verde-amarelo; retorno/viajantes: outra cor permitida (neste exercício, vermelho).");return}if(!done.has(current)){done.add(current);score+=100}show("ok",challenges[current].explain+" +100 pontos.");$("next").disabled=false;draw();renderLevelsOnly();updateProgress()};
