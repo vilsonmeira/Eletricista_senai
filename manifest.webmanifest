@@ -1,0 +1,16 @@
+{
+  "id": "./",
+  "name": "Eletricista SENAI",
+  "short_name": "Eletricista",
+  "description": "Laboratório virtual de instalações elétricas em estilo gibi.",
+  "lang": "pt-BR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f2c94c",
+  "theme_color": "#174ea6",
+  "icons": [
+    {"src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}
+  ]
+}
