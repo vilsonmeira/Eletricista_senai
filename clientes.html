@@ -1,0 +1,42 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101c33"><title>Solicitar projeto | Eletricista SENAI</title><style>
+:root{color-scheme:dark;--bg:#0b1220;--panel:#142139;--line:#2a3c5c;--blue:#60a5fa;--yellow:#facc15;--muted:#a8b6cc}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#1a3152,var(--bg) 58%);font:15px/1.5 system-ui,Arial;color:#f8fafc}
+header{padding:22px 16px;text-align:center;background:#0c1729;border-bottom:1px solid var(--line)}h1{margin:5px 0;font-size:clamp(24px,5vw,36px)}header p,.muted,small{color:var(--muted)}
+main{max-width:1050px;margin:auto;padding:15px;display:grid;gap:14px}.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}label{display:grid;gap:5px;color:#dbeafe}
+input,select,textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:9px;background:#0b1729;color:white;font:inherit}textarea{min-height:100px;resize:vertical}
+button,.btn{border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:#1d3150;color:white;font:inherit;cursor:pointer;text-decoration:none;display:inline-block}
+button.primary,.btn.primary{background:#1d4ed8;border-color:#3b82f6}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.status{padding:12px;border:1px solid var(--line);border-radius:10px;background:#0b1729;margin-top:12px;white-space:pre-wrap}.good{color:#fde68a;border-color:#a16207}.bad{color:#fecdd3;border-color:#be123c}
+.row{display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap}.pill{border:1px solid var(--line);border-radius:999px;padding:5px 10px;color:#dbeafe}
+.item{padding:13px;border:1px solid var(--line);border-radius:12px;margin-top:10px;background:#0b1729}.item h3{margin:0 0 5px}.bar{height:9px;border-radius:9px;background:#26364f;overflow:hidden}.bar span{display:block;height:100%;background:#60a5fa}
+a{color:#93c5fd}@media(max-width:600px){main{padding:10px}.card{padding:13px}}
+@media print{body{background:#fff;color:#111}header{background:#fff;color:#111}.card,.item{background:#fff;color:#111;border:1px solid #aaa}.muted,small{color:#444}.no-print,button{display:none!important}}
+</style></head><body>
+<header><div style="font-size:34px">🏠⚡</div><h1>CADASTRO DE CLIENTE E IMÓVEL</h1><p>Solicite seu projeto elétrico e acompanhe cada etapa pelo celular.</p></header>
+<main>
+<section class="card"><div class="row"><h2>Seus dados</h2><a href="./index.html">← Início</a></div><p class="muted">Preencha os dados para abrir sua solicitação. O WhatsApp será usado para contato sobre o projeto.</p>
+<form id="requestForm"><div class="grid">
+<label>Nome completo *<input name="name" required minlength="2" autocomplete="name" placeholder="Seu nome"></label>
+<label>WhatsApp com DDD *<input name="phone" required inputmode="tel" autocomplete="tel" placeholder="(11) 99999-9999"></label>
+<label>Nome do imóvel<input name="property_name" placeholder="Ex.: Minha casa"></label>
+<label>Tipo de imóvel<select name="property_type"><option>Residencial</option><option>Apartamento</option><option>Casa</option><option>Comercial</option><option>Reforma</option><option>Outro</option></select></label>
+<label style="grid-column:1/-1">Endereço completo *<input name="address" required minlength="6" autocomplete="street-address" placeholder="Rua, número, bairro, cidade e estado"></label>
+<label>Como conheceu o serviço?<select name="source"><option value="site">Site</option><option value="indicacao">Indicação</option><option value="whatsapp">WhatsApp</option><option value="visita">Visita</option><option value="redes_sociais">Redes sociais</option><option value="outro">Outro</option></select></label>
+<label style="grid-column:1/-1">O que precisa? (opcional)<textarea name="notes" placeholder="Ex.: instalação nova, reforma, quantidade de cômodos ou dúvidas"></textarea></label>
+</div><div class="actions"><button class="primary" id="submitBtn" type="submit">Enviar solicitação</button></div></form>
+<div id="result" class="status" role="status">Após o cadastro, você receberá um link exclusivo para acompanhar seu projeto. Guarde esse link.</div>
+</section>
+<section class="card"><h2>Já tem uma solicitação?</h2><p class="muted">Abra seu link de acompanhamento recebido no cadastro para ver as atualizações e imprimir/salvar o projeto em PDF quando estiver disponível.</p></section>
+<section class="card"><h2>Privacidade</h2><p class="muted">Seus dados são usados para atender sua solicitação e identificar o imóvel. Não compartilhe seu link exclusivo de acompanhamento com outras pessoas.</p></section>
+</main>
+<script>
+const API="https://pzkwxlxhawrbnjbsdxpo.supabase.co/functions/v1/eletricista-portal";
+const form=document.getElementById("requestForm"),result=document.getElementById("result"),btn=document.getElementById("submitBtn");
+form.addEventListener("submit",async e=>{e.preventDefault();btn.disabled=true;btn.textContent="Enviando...";
+try{const data=Object.fromEntries(new FormData(form).entries());const r=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});const out=await r.json();if(!r.ok)throw new Error(out.error||"Falha no cadastro.");
+const link=location.origin+location.pathname.replace(/[^/]*$/,"")+"portal.html?token="+out.portal_token;
+result.className="status good";result.innerHTML="Cadastro recebido! Seu número de projeto é "+out.project.id.slice(0,8).toUpperCase()+".\n\nGuarde o link exclusivo para acompanhar o andamento:";
+const a=document.createElement("a");a.href=link;a.textContent="Abrir acompanhamento do meu projeto";a.className="btn primary";a.style.marginTop="10px";a.target="_blank";result.appendChild(document.createElement("br"));result.appendChild(a);
+const copy=document.createElement("button");copy.textContent="Copiar link";copy.style.marginLeft="8px";copy.onclick=()=>navigator.clipboard?.writeText(link);result.appendChild(copy);form.reset();
+}catch(err){result.className="status bad";result.textContent=err.message;}finally{btn.disabled=false;btn.textContent="Enviar solicitação";}});
+</script></body></html>
