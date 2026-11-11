@@ -38,7 +38,7 @@ button:active,.levels button:active{transform:translate(2px,2px);box-shadow:1px 
 .progress span{background:#e63946}
 .board-wrap{background:#dcecff;border:3px solid #172544;box-shadow:inset 0 0 0 3px #fff;border-radius:14px}
 .board .node{fill:#fff8df;stroke:#172544;stroke-width:3}
-.board .terminal{fill:#174ea6;stroke:#172544;stroke-width:3;pointer-events:all;cursor:pointer}
+.board .terminal{fill:#ffd43b;stroke:#172544;stroke-width:3;pointer-events:all;cursor:pointer}.board .component-label{fill:#172544;font-size:13px;font-weight:900}.board .component-hit{cursor:pointer;pointer-events:all}
 .board .terminal.active{fill:#ffd43b}
 .board text{fill:#172544;font-weight:900}
 .board .sub{fill:#42516b}
@@ -113,14 +113,73 @@ let current=0,score=0,done=new Set(),connections=[],dragFrom=null,selectedColor=
 const $=id=>document.getElementById(id);
 const key=(a,b)=>[a,b].sort().join("|");
 function nodeById(id){return challenges[current].nodes.find(n=>n[0]===id)}
+function svgEl(tag,attrs={},parent){
+ const el=document.createElementNS("http://www.w3.org/2000/svg",tag);
+ Object.entries(attrs).forEach(([k,v])=>el.setAttribute(k,v));
+ if(parent)parent.appendChild(el);return el;
+}
+function portPoint(n,other){
+ const x=n[2],y=n[3],id=n[0];
+ if(id==="T"){
+  const map={F:-24,N:0,PE:24};return{x:x-43,y:y+(map[other]??0)};
+ }
+ if(["F","N","PE"].includes(id))return{x:x+42,y:y+8};
+ if(id==="S"||id==="P1C"||id==="P2C"||id==="P1A"||id==="P1B"||id==="P2A"||id==="P2B"||id==="I1A"||id==="I1B"||id==="I2A"||id==="I2B"){
+  const left=(other==="F"||other==="P1A"||other==="P1B"||other==="I1A"||other==="I1B");
+  return{x:x+(left?-42:42),y:y+19};
+ }
+ if(id==="L"||id==="L1"||id==="L2")return{x:x+(other==="N"?34:-34),y:y+24};
+ return{x:x,y:y+30};
+}
+function drawComponent(n,g){
+ const id=n[0],x=n[2],y=n[3],isLamp=id==="L"||id==="L1"||id==="L2",isOutlet=id==="T",isSupply=["F","N","PE"].includes(id),isIntermediate=id.startsWith("I");
+ svgEl("text",{x,y:y-42,"text-anchor":"middle",class:"component-label"},g).textContent=n[1];
+ if(isLamp){
+  svgEl("path",{d:`M ${x-17} ${y+7} Q ${x-28} ${y-8} ${x-16} ${y-22} Q ${x} ${y-37} ${x+16} ${y-22} Q ${x+28} ${y-8} ${x+17} ${y+7} L ${x+11} ${y+15} L ${x-11} ${y+15} Z`,fill:"#fff7c2",stroke:"#172544","stroke-width":3},g);
+  svgEl("path",{d:`M ${x-10} ${y+16} L ${x+10} ${y+16} M ${x-9} ${y+22} L ${x+9} ${y+22} M ${x-7} ${y+27} L ${x+7} ${y+27}`,stroke:"#172544","stroke-width":4,"stroke-linecap":"round"},g);
+  svgEl("path",{d:`M ${x-9} ${y-10} Q ${x} ${y-2} ${x+9} ${y-10}`,stroke:"#e0a800","stroke-width":2,fill:"none"},g);
+ }else if(isOutlet){
+  svgEl("rect",{x:x-42,y:y-35,width:84,height:70,rx:12,fill:"#fff",stroke:"#172544","stroke-width":4},g);
+  svgEl("circle",{cx:x,cy:y-13,r:5,fill:"#172544"},g);
+  svgEl("rect",{x:x-19,y:y-5,width:8,height:22,rx:4,fill:"#172544"},g);
+  svgEl("rect",{x:x+11,y:y-5,width:8,height:22,rx:4,fill:"#172544"},g);
+  svgEl("circle",{cx:x,cy:y+22,r:5,fill:"#168a3b",stroke:"#172544","stroke-width":1.5},g);
+ }else if(isSupply){
+  svgEl("rect",{x:x-39,y:y-24,width:78,height:48,rx:8,fill:"#e9eef7",stroke:"#172544","stroke-width":3},g);
+  svgEl("circle",{cx:x,cy:y,r:14,fill:"#fff",stroke:"#172544","stroke-width":2},g);
+  svgEl("text",{x,y:y+5,"text-anchor":"middle",fill:"#172544","font-size":13,"font-weight":900},g).textContent=id;
+ }else{
+  svgEl("rect",{x:x-49,y:y-29,width:98,height:58,rx:9,fill:"#f4f6fa",stroke:"#172544","stroke-width":3},g);
+  if(isIntermediate){
+   svgEl("path",{d:`M ${x-25} ${y-10} L ${x+23} ${y+10} M ${x-25} ${y+10} L ${x+23} ${y-10}`,stroke:"#174ea6","stroke-width":5,"stroke-linecap":"round"},g);
+   svgEl("path",{d:`M ${x+13} ${y+2} L ${x+23} ${y+10} L ${x+12} ${y+15}`,stroke:"#174ea6","stroke-width":3,fill:"none"},g);
+  }else{
+   svgEl("rect",{x:x-18,y:y-20,width:36,height:40,rx:7,fill:"#d8e4f5",stroke:"#172544","stroke-width":2},g);
+   svgEl("path",{d:`M ${x-10} ${y+9} L ${x+10} ${y-9}`,stroke:"#174ea6","stroke-width":5,"stroke-linecap":"round"},g);
+  }
+  svgEl("circle",{cx:x-34,cy:y+19,r:5,fill:"#d6a84b",stroke:"#172544","stroke-width":2},g);
+  svgEl("circle",{cx:x+34,cy:y+19,r:5,fill:"#d6a84b",stroke:"#172544","stroke-width":2},g);
+ }
+ // bornes clicáveis visíveis; os fios chegam às posições de conexão do componente
+ const ports=isOutlet?["F","N","PE"]:isSupply?["OUT"]:["IN","OUT"];
+ ports.forEach((p,i)=>{
+  const pos=isOutlet?{x:x-43,y:y+(p==="F"?-24:p==="N"?0:24)}:isSupply?{x:x+42,y:y+8}:{x:x+(i===0?-42:42),y:y+19};
+  svgEl("circle",{cx:pos.x,cy:pos.y,r:8,class:"terminal"+(dragFrom===id?" active":""), "data-id":id},g);
+ });
+}
 function draw(){
  const c=challenges[current],wires=$("wires"),nodes=$("nodes");wires.innerHTML="";
- connections.forEach(e=>{const a=nodeById(e.a),b=nodeById(e.b);if(!a||!b)return;const line=document.createElementNS("http://www.w3.org/2000/svg","line");line.setAttribute("x1",a[2]);line.setAttribute("y1",a[3]);line.setAttribute("x2",b[2]);line.setAttribute("y2",b[3]);line.setAttribute("class","wire");line.setAttribute("stroke",wireColors[e.color]);line.setAttribute("stroke-width","8");line.setAttribute("stroke-linecap","round");wires.appendChild(line)});
+ connections.forEach(e=>{
+  const a=nodeById(e.a),b=nodeById(e.b);if(!a||!b)return;
+  const pa=portPoint(a,e.b),pb=portPoint(b,e.a);
+  svgEl("line",{x1:pa.x,y1:pa.y,x2:pb.x,y2:pb.y,class:"wire",stroke:wireColors[e.color],"stroke-width":7,"stroke-linecap":"round"},wires);
+ });
  nodes.innerHTML="";
- c.nodes.forEach(n=>{const g=document.createElementNS("http://www.w3.org/2000/svg","g");const rect=document.createElementNS("http://www.w3.org/2000/svg","rect");rect.setAttribute("x",n[2]-78);rect.setAttribute("y",n[3]-31);rect.setAttribute("width",156);rect.setAttribute("height",62);rect.setAttribute("rx",12);rect.setAttribute("class","node");g.appendChild(rect);
- const t=document.createElementNS("http://www.w3.org/2000/svg","text");t.setAttribute("x",n[2]);t.setAttribute("y",n[3]-2);t.setAttribute("text-anchor","middle");t.textContent=n[0];g.appendChild(t);
- const sub=document.createElementNS("http://www.w3.org/2000/svg","text");sub.setAttribute("x",n[2]);sub.setAttribute("y",n[3]+17);sub.setAttribute("text-anchor","middle");sub.setAttribute("class","sub");sub.textContent=n[1].length>21?n[1].slice(0,20)+"…":n[1];g.appendChild(sub);
- const pin=document.createElementNS("http://www.w3.org/2000/svg","circle");pin.setAttribute("cx",n[2]);pin.setAttribute("cy",n[3]+31);pin.setAttribute("r",10);pin.setAttribute("class","terminal"+(dragFrom===n[0]?" active":""));pin.dataset.id=n[0];g.appendChild(pin);nodes.appendChild(g)});
+ c.nodes.forEach(n=>{const g=svgEl("g",{},nodes);drawComponent(n,g);
+  // Área de seleção ampla para facilitar o toque no celular
+  const hit=svgEl("circle",{cx:n[2],cy:n[3]+19,r:48,fill:"transparent",class:"component-hit","data-id":n[0]},g);
+  hit.style.pointerEvents="all";
+ });
 }
 const wireColors={black:"#222222",brown:"#8b4513",gray:"#777777",blue:"#1687e8","green-yellow":"#20a34a",red:"#e63946"};
 $("wirePalette").addEventListener("click",e=>{
@@ -130,10 +189,10 @@ $("wirePalette").addEventListener("click",e=>{
  show("","Cor selecionada: "+b.innerText.trim()+". Agora toque em dois terminais para colocar o fio.");
 });
 $("board").addEventListener("click",e=>{
- const pin=e.target.closest(".terminal");if(!pin)return;
+ const pin=e.target.closest("[data-id]");if(!pin)return;
  const id=pin.dataset.id;
- if(!dragFrom){dragFrom=id;draw();show("","Terminal "+id+" selecionado. Agora toque no segundo terminal.");return;}
- if(id===dragFrom){dragFrom=null;draw();show("","Seleção cancelada. Toque no primeiro terminal novamente.");return;}
+ if(!dragFrom){dragFrom=id;draw();show("","Componente "+id+" selecionado. Agora toque no componente de destino.");return;}
+ if(id===dragFrom){dragFrom=null;draw();show("","Seleção cancelada. Escolha outro componente.");return;}
  addConnection(dragFrom,id);dragFrom=null;draw();
 });
 function addConnection(a,b){const k=key(a,b);if(connections.some(x=>key(x.a,x.b)===k)){show("bad","Essa ligação já existe. Escolha outro par de terminais.");return}connections.push({a,b,color:selectedColor});$("status").className="status";$("status").innerHTML='<span class="lamp"></span> Fio '+selectedColor+' conectado. Continue montando o circuito.'}
