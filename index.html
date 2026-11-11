@@ -38,7 +38,7 @@ button:active,.levels button:active{transform:translate(2px,2px);box-shadow:1px 
 .progress span{background:#e63946}
 .board-wrap{background:#dcecff;border:3px solid #172544;box-shadow:inset 0 0 0 3px #fff;border-radius:14px}
 .board .node{fill:#fff8df;stroke:#172544;stroke-width:3}
-.board .terminal{fill:#ffd43b;stroke:#172544;stroke-width:3;pointer-events:all;cursor:pointer}.board .component-label{fill:#172544;font-size:13px;font-weight:900}.board .component-hit{cursor:pointer;pointer-events:all}
+.board .terminal{fill:#ffd43b;stroke:#172544;stroke-width:3;pointer-events:all;cursor:pointer}.board .component-label{fill:#172544;font-size:13px;font-weight:900}.board .terminal{fill:#d6a84b;stroke:#26344d;stroke-width:2.5}.board .terminal.active{fill:#e63946;stroke:#172544;stroke-width:3}.board .component-hit{cursor:pointer;pointer-events:all}
 .board .terminal.active{fill:#ffd43b}
 .board text{fill:#172544;font-weight:900}
 .board .sub{fill:#42516b}
@@ -132,39 +132,48 @@ function portPoint(n,other){
  return{x:x,y:y+30};
 }
 function drawComponent(n,g){
- const id=n[0],x=n[2],y=n[3],isLamp=id==="L"||id==="L1"||id==="L2",isOutlet=id==="T",isSupply=["F","N","PE"].includes(id),isIntermediate=id.startsWith("I");
- svgEl("text",{x,y:y-42,"text-anchor":"middle",class:"component-label"},g).textContent=n[1];
- if(isLamp){
-  svgEl("path",{d:`M ${x-17} ${y+7} Q ${x-28} ${y-8} ${x-16} ${y-22} Q ${x} ${y-37} ${x+16} ${y-22} Q ${x+28} ${y-8} ${x+17} ${y+7} L ${x+11} ${y+15} L ${x-11} ${y+15} Z`,fill:"#fff7c2",stroke:"#172544","stroke-width":3},g);
-  svgEl("path",{d:`M ${x-10} ${y+16} L ${x+10} ${y+16} M ${x-9} ${y+22} L ${x+9} ${y+22} M ${x-7} ${y+27} L ${x+7} ${y+27}`,stroke:"#172544","stroke-width":4,"stroke-linecap":"round"},g);
-  svgEl("path",{d:`M ${x-9} ${y-10} Q ${x} ${y-2} ${x+9} ${y-10}`,stroke:"#e0a800","stroke-width":2,fill:"none"},g);
- }else if(isOutlet){
-  svgEl("rect",{x:x-42,y:y-35,width:84,height:70,rx:12,fill:"#fff",stroke:"#172544","stroke-width":4},g);
-  svgEl("circle",{cx:x,cy:y-13,r:5,fill:"#172544"},g);
-  svgEl("rect",{x:x-19,y:y-5,width:8,height:22,rx:4,fill:"#172544"},g);
-  svgEl("rect",{x:x+11,y:y-5,width:8,height:22,rx:4,fill:"#172544"},g);
-  svgEl("circle",{cx:x,cy:y+22,r:5,fill:"#168a3b",stroke:"#172544","stroke-width":1.5},g);
- }else if(isSupply){
-  svgEl("rect",{x:x-39,y:y-24,width:78,height:48,rx:8,fill:"#e9eef7",stroke:"#172544","stroke-width":3},g);
-  svgEl("circle",{cx:x,cy:y,r:14,fill:"#fff",stroke:"#172544","stroke-width":2},g);
-  svgEl("text",{x,y:y+5,"text-anchor":"middle",fill:"#172544","font-size":13,"font-weight":900},g).textContent=id;
+ const id=n[0],x=n[2],y=n[3],lamp=["L","L1","L2"].includes(id),outlet=id==="T",supply=["F","N","PE"].includes(id),intermediate=id.startsWith("I");
+ const label=svgEl("text",{x,y:y-52,"text-anchor":"middle",class:"component-label"},g);label.textContent=n[1];
+ if(lamp){
+  // Lâmpada doméstica LED A60, com difusor e base metálica
+  svgEl("ellipse",{cx:x,cy:y-5,rx:31,ry:35,fill:"#fff1a8",stroke:"#26344d","stroke-width":3},g);
+  svgEl("path",{d:`M ${x-18} ${y+17} Q ${x-16} ${y+27} ${x-12} ${y+29} L ${x+12} ${y+29} Q ${x+16} ${y+27} ${x+18} ${y+17}`,fill:"#f7f7f7",stroke:"#26344d","stroke-width":2},g);
+  svgEl("path",{d:`M ${x-12} ${y+30} L ${x+12} ${y+30} M ${x-11} ${y+35} L ${x+11} ${y+35} M ${x-9} ${y+40} L ${x+9} ${y+40} M ${x} ${y-20} L ${x} ${y+10} M ${x-10} ${y-8} L ${x} ${y+5} L ${x+10} ${y-8}`,fill:"none",stroke:"#b38b32","stroke-width":2.5,"stroke-linecap":"round"},g);
+  svgEl("path",{d:`M ${x-17} ${y-18} Q ${x} ${y-32} ${x+15} ${y-18}`,fill:"none",stroke:"#fff","stroke-width":5,"stroke-linecap":"round"},g);
+ }else if(outlet){
+  // Tomada residencial padrão brasileiro 2P+T, vista frontal
+  svgEl("rect",{x:x-43,y:y-42,width:86,height:84,rx:10,fill:"#fdfdfd",stroke:"#aab4c2","stroke-width":2},g);
+  svgEl("rect",{x:x-38,y:y-37,width:76,height:74,rx:8,fill:"#fff",stroke:"#26344d","stroke-width":2.5},g);
+  svgEl("circle",{cx:x,cy:y-20,r:5,fill:"#26344d"},g);
+  svgEl("ellipse",{cx:x-17,cy:y+4,rx:5,ry:10,fill:"#26344d"},g);
+  svgEl("ellipse",{cx:x+17,cy:y+4,rx:5,ry:10,fill:"#26344d"},g);
+  svgEl("path",{d:`M ${x-5} ${y+25} Q ${x} ${y+19} ${x+5} ${y+25}`,fill:"none",stroke:"#168a3b","stroke-width":3},g);
+ }else if(supply){
+  // Ponto de alimentação em borne de conexão, sem caixa com letra
+  svgEl("rect",{x:x-21,y:y-27,width:42,height:54,rx:5,fill:"#d9dee5",stroke:"#26344d","stroke-width":2.5},g);
+  svgEl("rect",{x:x-14,y:y-19,width:28,height:16,rx:3,fill:"#f7f7f7",stroke:"#667085","stroke-width":1.5},g);
+  svgEl("circle",{cx:x,cy:y+10,r:9,fill:"#b7c0cb",stroke:"#26344d","stroke-width":2},g);
+  svgEl("path",{d:`M ${x-5} ${y+10} L ${x+5} ${y+10} M ${x} ${y+5} L ${x} ${y+15}`,stroke:"#26344d","stroke-width":2},g);
  }else{
-  svgEl("rect",{x:x-49,y:y-29,width:98,height:58,rx:9,fill:"#f4f6fa",stroke:"#172544","stroke-width":3},g);
-  if(isIntermediate){
-   svgEl("path",{d:`M ${x-25} ${y-10} L ${x+23} ${y+10} M ${x-25} ${y+10} L ${x+23} ${y-10}`,stroke:"#174ea6","stroke-width":5,"stroke-linecap":"round"},g);
-   svgEl("path",{d:`M ${x+13} ${y+2} L ${x+23} ${y+10} L ${x+12} ${y+15}`,stroke:"#174ea6","stroke-width":3,fill:"none"},g);
-  }else{
-   svgEl("rect",{x:x-18,y:y-20,width:36,height:40,rx:7,fill:"#d8e4f5",stroke:"#172544","stroke-width":2},g);
-   svgEl("path",{d:`M ${x-10} ${y+9} L ${x+10} ${y-9}`,stroke:"#174ea6","stroke-width":5,"stroke-linecap":"round"},g);
+  // Interruptor residencial modular: placa, parafusos e tecla basculante
+  svgEl("rect",{x:x-45,y:y-45,width:90,height:90,rx:9,fill:"#e8ebef",stroke:"#8c98a8","stroke-width":2},g);
+  svgEl("rect",{x:x-40,y:y-40,width:80,height:80,rx:7,fill:"#fff",stroke:"#26344d","stroke-width":2.5},g);
+  svgEl("circle",{cx:x-31,cy:y-31,r:2.7,fill:"#a4acb8",stroke:"#667085","stroke-width":1},g);
+  svgEl("circle",{cx:x+31,cy:y-31,r:2.7,fill:"#a4acb8",stroke:"#667085","stroke-width":1},g);
+  svgEl("circle",{cx:x-31,cy:y+31,r:2.7,fill:"#a4acb8",stroke:"#667085","stroke-width":1},g);
+  svgEl("circle",{cx:x+31,cy:y+31,r:2.7,fill:"#a4acb8",stroke:"#667085","stroke-width":1},g);
+  svgEl("rect",{x:x-19,y:y-29,width:38,height:58,rx:7,fill:"#d9dee6",stroke:"#727f90","stroke-width":2},g);
+  svgEl("path",{d:`M ${x-14} ${y-23} Q ${x} ${y-29} ${x+14} ${y-23} L ${x+14} ${y+17} Q ${x} ${y+25} ${x-14} ${y+17} Z`,fill:"#f9fafb",stroke:"#a2aab5","stroke-width":1.5},g);
+  svgEl("path",{d:`M ${x-10} ${y-17} Q ${x} ${y-22} ${x+10} ${y-17}`,fill:"none",stroke:"#fff","stroke-width":3,"stroke-linecap":"round"},g);
+  if(intermediate){
+   svgEl("path",{d:`M ${x-7} ${y+2} L ${x+7} ${y-5} M ${x-7} ${y-5} L ${x+7} ${y+2}`,stroke:"#7d8998","stroke-width":2.5,"stroke-linecap":"round"},g);
   }
-  svgEl("circle",{cx:x-34,cy:y+19,r:5,fill:"#d6a84b",stroke:"#172544","stroke-width":2},g);
-  svgEl("circle",{cx:x+34,cy:y+19,r:5,fill:"#d6a84b",stroke:"#172544","stroke-width":2},g);
  }
- // bornes clicáveis visíveis; os fios chegam às posições de conexão do componente
- const ports=isOutlet?["F","N","PE"]:isSupply?["OUT"]:["IN","OUT"];
+ // Terminais em latão, posicionados na borda do componente para receber os fios
+ const ports=outlet?["F","N","PE"]:supply?["OUT"]:["IN","OUT"];
  ports.forEach((p,i)=>{
-  const pos=isOutlet?{x:x-43,y:y+(p==="F"?-24:p==="N"?0:24)}:isSupply?{x:x+42,y:y+8}:{x:x+(i===0?-42:42),y:y+19};
-  svgEl("circle",{cx:pos.x,cy:pos.y,r:8,class:"terminal"+(dragFrom===id?" active":""), "data-id":id},g);
+  const pos=outlet?{x:x-43,y:y+(p==="F"?-25:p==="N"?0:25)}:supply?{x:x+21,y:y+10}:{x:x+(i===0?-45:45),y:y+20};
+  svgEl("circle",{cx:pos.x,cy:pos.y,r:7.5,fill:"#d6a84b",stroke:"#26344d","stroke-width":2,class:"terminal"+(dragFrom===id?" active":""),"data-id":id},g);
  });
 }
 function draw(){
