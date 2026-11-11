@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101c33">
+<title>Eletricista Master | SENAI</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1220;--panel:#142139;--line:#2a3c5c;--blue:#60a5fa;--green:#facc15;--red:#fb7185;--muted:#a8b6cc}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#1a3152,var(--bg) 55%);font:16px/1.5 system-ui,Arial;color:#f8fafc}
+header{padding:28px 18px;text-align:center;background:#0c1729dd;border-bottom:1px solid var(--line)}header .bolt{font-size:38px}h1{margin:4px 0;font-size:clamp(25px,5vw,40px)}header p{margin:0;color:var(--muted)}
+main{max-width:1050px;margin:auto;padding:20px;display:grid;gap:18px}.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 12px 32px #0003}
+.top{display:flex;gap:12px;flex-wrap:wrap;justify-content:space-between;align-items:center}.pill{border:1px solid var(--line);border-radius:999px;padding:7px 12px;color:#dbeafe}
+h2{margin:0 0 10px;font-size:21px}.muted{color:var(--muted)}.levels{display:flex;gap:8px;flex-wrap:wrap}.levels button,button,select{font:inherit;border-radius:10px;border:1px solid var(--line);padding:10px 13px;background:#1d3150;color:white}.levels button.active,button.primary{background:#1d4ed8;border-color:#3b82f6}.levels button:disabled{opacity:.45}
+.diagram{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0}.node{padding:14px 8px;text-align:center;border:1px dashed #6680a7;border-radius:12px;background:#0d1a2d}.node b{display:block;font-size:20px}.node small{color:var(--muted)}
+.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.field{display:grid;gap:6px}.field label{font-size:14px;color:#dbeafe}.field select{width:100%}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.status{padding:14px;border-radius:12px;margin-top:14px;background:#0b1729;border:1px solid var(--line);min-height:52px}.status.ok{border-color:#eab308;color:#fde68a}.status.bad{border-color:#fb7185;color:#fecdd3}
+.lamp{display:inline-block;width:15px;height:15px;border-radius:50%;margin-right:8px;background:#475569;box-shadow:0 0 0 3px #ffffff12}.lamp.ok{background:#facc15;box-shadow:0 0 15px #facc15}.lamp.bad{background:#fb7185;box-shadow:0 0 15px #fb7185}
+.progress{height:9px;background:#0b1729;border-radius:9px;overflow:hidden;margin-top:10px}.progress span{display:block;height:100%;width:0;background:#60a5fa;transition:width .3s}
+ul{padding-left:22px}.safety{border-left:4px solid #f59e0b}.footer{text-align:center;color:var(--muted);font-size:13px;padding:8px 18px 28px}
+@media(max-width:560px){main{padding:12px}.card{padding:16px}.diagram{grid-template-columns:1fr 1fr}.top{align-items:flex-start}}
+</style></head>
+<body>
+<header><div class="bolt">⚡</div><h1>ELETRICISTA MASTER</h1><p>Aprenda instalações elétricas por etapas • Trilha SENAI</p></header>
+<main>
+<section class="card"><div class="top"><div><h2>Seu painel de aprendizagem</h2><span class="muted">Treine conceitos antes de qualquer prática supervisionada.</span></div><div class="pill">⭐ Pontos: <strong id="score">0</strong></div></div><div class="progress"><span id="progress"></span></div><p class="muted" id="progressText">0 de 3 desafios concluídos</p><div class="levels" id="levels"></div></section>
+<section class="card"><div class="top"><div><h2 id="title">Nível 1 — Interruptor simples</h2><span class="muted" id="description"></span></div><span class="pill" id="difficulty">Iniciante</span></div>
+<div class="diagram" id="diagram"></div>
+<h2>Monte as ligações</h2><p class="muted">Escolha o destino de cada condutor conforme o diagrama conceitual. Este exercício não representa um painel energizado.</p>
+<div class="formgrid" id="wires"></div>
+<div class="actions"><button class="primary" id="check">Conferir ligações</button><button id="hint">Mostrar dica</button><button id="reset">Refazer nível</button><button id="next" disabled>Próximo nível →</button></div>
+<div class="status" id="status" aria-live="polite"><span class="lamp"></span> Faça as ligações e clique em “Conferir ligações”.</div>
+</section>
+<section class="card"><h2>Segurança em primeiro lugar</h2><ul><li>O simulador é virtual e não mede nem controla circuitos reais.</li><li>Nunca trabalhe em instalação energizada como iniciante.</li><li>Antes de qualquer serviço real, é necessário desenergizar e verificar ausência de tensão com procedimento e instrumento adequados.</li><li>Dimensionamento de cabos, disjuntores, aterramento e proteções depende do projeto e das normas aplicáveis.</li></ul><p class="muted">Referências de estudo: ABNT NBR 5410 (instalações elétricas de baixa tensão) e NR-10 (segurança em instalações e serviços em eletricidade).</p></section>
+<section class="card safety"><h2>Importante</h2>Este jogo é material didático complementar. Não substitui aulas, diagramas oficiais, projeto elétrico, normas técnicas ou orientação do instrutor/profissional habilitado. Não use as respostas do jogo como instrução para executar ligações reais.</section>
+</main><div class="footer">Eletricista_senai • Projeto educacional independente</div>
+<script>
+const challenges=[
+{id:1,title:"Nível 1 — Interruptor simples",difficulty:"Iniciante",desc:"Entenda a função do interruptor no comando de uma lâmpada.",nodes:[["F","Fase"],["S","Interruptor"],["L","Lâmpada"],["N","Neutro"]],wires:[["Condutor fase","F","S"],["Retorno","S","L"],["Neutro","L","N"]],hint:"Conceito: a fase chega ao interruptor; o retorno sai dele para a lâmpada; o neutro completa o circuito da carga.",explain:"Muito bem! Você identificou fase, retorno e neutro no circuito conceitual de comando simples."},
+{id:2,title:"Nível 2 — Duas lâmpadas em paralelo",difficulty:"Básico",desc:"Reconheça a ligação em paralelo e os caminhos independentes das cargas.",nodes:[["F","Fase"],["C","Comando"],["L1","Lâmpada 1"],["L2","Lâmpada 2"],["N","Neutro"]],wires:[["Fase até comando","F","C"],["Retorno para lâmpada 1","C","L1"],["Derivação para lâmpada 2","C","L2"],["Neutro comum","L1","N"],["Neutro da segunda carga","L2","N"]],hint:"Em paralelo, cada lâmpada recebe alimentação em seu próprio ramo. As cargas compartilham os condutores de alimentação conforme o projeto.",explain:"Correto! Você reconheceu dois ramos de carga em paralelo."},
+{id:3,title:"Nível 3 — Tomada (conceito)",difficulty:"Intermediário",desc:"Identifique os três condutores funcionais de uma tomada.",nodes:[["F","Fase"],["N","Neutro"],["PE","Proteção (terra)"],["T","Tomada"]],wires:[["Condutor fase","F","T"],["Condutor neutro","N","T"],["Condutor de proteção","PE","T"]],hint:"A tomada deve ter condutor de proteção (PE) próprio, ligado ao sistema de aterramento. Neutro e PE têm funções diferentes e não devem ser tratados como o mesmo condutor.",explain:"Excelente! Você diferenciou fase, neutro e condutor de proteção (PE)."}
+];
+let current=0,score=0,done=new Set();
+const $=id=>document.getElementById(id);
+function render(){const c=challenges[current];$("title").textContent=c.title;$("description").textContent=c.desc;$("difficulty").textContent=c.difficulty;
+$("diagram").innerHTML=c.nodes.map(n=>'<div class="node"><b>'+n[0]+'</b><small>'+n[1]+'</small></div>').join("");
+$("wires").innerHTML=c.wires.map((w,i)=>'<div class="field"><label for="wire'+i+'">'+w[0]+'</label><select id="wire'+i+'"><option value="">Escolha o destino…</option>'+c.nodes.map(n=>'<option value="'+n[0]+'">'+n[0]+' — '+n[1]+'</option>').join("")+'</select></div>').join("");
+c.wires.forEach((w,i)=>{$("wire"+i).value=""});$("status").className="status";$("status").innerHTML='<span class="lamp"></span> Faça as ligações e clique em “Conferir ligações”.';$("next").disabled=!done.has(current);$("next").textContent=current===2?"Trilha concluída ✓":"Próximo nível →";$("levels").innerHTML=challenges.map((x,i)=>'<button data-level="'+i+'" class="'+(i===current?'active':'')+'">'+(done.has(i)?"✓ ":"")+ "Nível "+(i+1)+'</button>').join("");document.querySelectorAll("[data-level]").forEach(b=>b.onclick=()=>{current=Number(b.dataset.level);render()});updateProgress()}
+function updateProgress(){$("score").textContent=score;$("progress").style.width=(done.size/3*100)+"%";$("progressText").textContent=done.size+" de 3 desafios concluídos"}
+$("check").onclick=()=>{const c=challenges[current];let missing=false,wrong=false;c.wires.forEach((w,i)=>{const v=$("wire"+i).value;if(!v)missing=true;else if(v!==w[2])wrong=true});if(missing){show("bad","Preencha todos os destinos antes de conferir.");return}if(wrong){show("bad","Há ligação incorreta. Revise os destinos e tente novamente. A lâmpada vermelha indica erro no exercício.");return}if(!done.has(current)){done.add(current);score+=100}show("ok",c.explain+" +100 pontos.");$("next").disabled=false;$("levels").querySelector('[data-level="'+current+'"]').textContent="✓ Nível "+(current+1);updateProgress()};
+function show(type,msg){$("status").className="status "+type;$("status").innerHTML='<span class="lamp '+(type==="ok"?"ok":"bad")+'"></span>'+msg}
+$("hint").onclick=()=>show("","Dica: "+challenges[current].hint);$("reset").onclick=render;$("next").onclick=()=>{if(current<2){current++;render()}else show("ok","Parabéns! Você concluiu a primeira trilha. Em breve: novos circuitos e desafios.")};render();
+</script></body></html>
