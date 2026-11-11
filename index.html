@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#101c33">
+<meta name="theme-color" content="#174ea6"><meta name="description" content="Eletricista SENAI: jogo educativo de instalações elétricas em estilo gibi."><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="manifest" href="./manifest.webmanifest">
 <title>Eletricista Master | SENAI</title>
 <style>
 :root{color-scheme:dark;--bg:#0b1220;--panel:#142139;--line:#2a3c5c;--blue:#60a5fa;--yellow:#facc15;--red:#fb7185;--muted:#a8b6cc}
@@ -18,10 +18,60 @@ h2{margin:0 0 10px;font-size:21px}.muted{color:var(--muted)}.levels{display:flex
 .legend{display:flex;gap:15px;flex-wrap:wrap;color:var(--muted);font-size:13px}.legend span{display:flex;align-items:center;gap:6px}.dot{width:10px;height:10px;border-radius:50%;display:inline-block;background:#60a5fa}.dot.good{background:#facc15}
 ul{padding-left:22px}.safety{border-left:4px solid #f59e0b}.footer{text-align:center;color:var(--muted);font-size:13px;padding:8px 18px 28px}
 @media(max-width:600px){main{padding:12px}.card{padding:15px}.top{align-items:flex-start}}
+
+/* ===== Identidade gibi + experiência mobile ===== */
+:root{--bg:#101a32;--panel:#fff8df;--line:#172544;--blue:#174ea6;--yellow:#ffd43b;--red:#e63946;--muted:#42516b}
+body{background:#f2c94c;color:#172544;font-family:"Trebuchet MS",system-ui,sans-serif}
+header{background:#174ea6;color:#fff;border-bottom:5px solid #172544;box-shadow:0 6px 0 #172544;padding:22px 14px}
+header .bolt{display:inline-grid;place-items:center;width:74px;height:74px;border:4px solid #172544;border-radius:50%;background:#ffd43b;color:#172544;font-size:42px;box-shadow:4px 4px 0 #172544;transform:rotate(-8deg)}
+header h1{font-weight:1000;letter-spacing:1px;text-shadow:3px 3px 0 #172544}
+header p{color:#eaf2ff;font-weight:700}
+main{max-width:980px;padding:16px;gap:16px}
+.card{background:#fff8df;color:#172544;border:3px solid #172544;border-radius:18px;box-shadow:6px 6px 0 #172544;padding:18px}
+.card h2{font-weight:950;color:#174ea6}
+.muted{color:#42516b}
+.pill{background:#ffd43b;color:#172544;border:2px solid #172544;font-weight:900;box-shadow:2px 2px 0 #172544}
+button,.levels button{background:#fff;color:#172544;border:2px solid #172544;border-radius:12px;font-weight:900;box-shadow:3px 3px 0 #172544;transition:transform .12s,box-shadow .12s}
+button:active,.levels button:active{transform:translate(2px,2px);box-shadow:1px 1px 0 #172544}
+.levels button.active,button.primary{background:#174ea6;color:#fff;border-color:#172544}
+.progress{background:#d8e1f0;border:2px solid #172544;height:13px}
+.progress span{background:#e63946}
+.board-wrap{background:#dcecff;border:3px solid #172544;box-shadow:inset 0 0 0 3px #fff;border-radius:14px}
+.board .node{fill:#fff8df;stroke:#172544;stroke-width:3}
+.board .terminal{fill:#174ea6;stroke:#172544;stroke-width:3}
+.board .terminal.active{fill:#ffd43b}
+.board text{fill:#172544;font-weight:900}
+.board .sub{fill:#42516b}
+.board .wire{stroke:#174ea6;stroke-width:6}
+.board .wire.correct{stroke:#e0a800;stroke-width:7}
+.status{background:#fff;border:3px solid #172544;color:#172544;font-weight:800;box-shadow:3px 3px 0 #172544}
+.status.ok{background:#fff2a8;border-color:#b88700;color:#5d4700}
+.status.bad{background:#ffe0e0;border-color:#e63946;color:#8e1720}
+.safety{border-left:7px solid #e63946}
+.footer{color:#172544;font-weight:700}
+.comic-mascot{display:flex;align-items:center;gap:14px;background:#fff8df;border:3px solid #172544;border-radius:18px;padding:14px;box-shadow:6px 6px 0 #172544}
+.mascot-avatar{flex:0 0 76px;width:76px;height:76px;display:grid;place-items:center;border:3px solid #172544;border-radius:50%;background:#ffd43b;font-size:48px;box-shadow:3px 3px 0 #172544}
+.speech{position:relative;background:#fff;border:3px solid #172544;border-radius:16px;padding:10px 13px;font-weight:800;color:#172544}
+.speech:before{content:"";position:absolute;left:-10px;top:25px;width:16px;height:16px;background:#fff;border-left:3px solid #172544;border-bottom:3px solid #172544;transform:rotate(45deg)}
+.install-btn{display:none;margin-top:10px;background:#ffd43b!important;color:#172544!important}
+@media(max-width:600px){
+ body{font-size:15px}header{padding:18px 12px}header .bolt{width:60px;height:60px;font-size:34px}
+ main{padding:12px 10px;gap:13px}.card{padding:14px;border-radius:15px;box-shadow:4px 4px 0 #172544}
+ .comic-mascot{padding:11px;gap:10px}.mascot-avatar{width:58px;height:58px;flex-basis:58px;font-size:36px}
+ .speech{font-size:13px;padding:9px 10px}.speech:before{top:18px}
+ .board{min-width:580px}.board-wrap{margin:10px -2px}
+ .actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.actions button{min-height:46px;padding:9px 7px;font-size:13px}
+ .actions button.primary{grid-column:1/-1}
+ .levels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.levels button{font-size:12px;padding:9px 4px}
+ .top{gap:8px}.pill{font-size:12px}
+}
+@media(min-width:700px){.comic-mascot{padding:18px}.mascot-avatar{width:90px;height:90px;flex-basis:90px;font-size:56px}}
+
 </style></head>
 <body>
 <header><div class="bolt">⚡</div><h1>ELETRICISTA MASTER</h1><p>Laboratório virtual de instalações elétricas • Trilha de aprendizagem SENAI</p></header>
 <main>
+<section class="comic-mascot"><div class="mascot-avatar" aria-hidden="true">👷‍♂️</div><div class="speech">Fala, eletricista! Eu sou seu parceiro de bancada. Vamos aprender ligação por ligação, ganhar pontos e dominar cada fase com segurança! ⚡</div></section>
 <section class="card"><div class="top"><div><h2>Painel de aprendizagem</h2><span class="muted">Conecte os terminais no quadro virtual e confira seu circuito.</span></div><div class="pill">⭐ Pontos: <strong id="score">0</strong></div></div><div class="progress"><span id="progress"></span></div><p class="muted" id="progressText">0 de 5 desafios concluídos</p><div class="levels" id="levels"></div></section>
 <section class="card"><div class="top"><div><h2 id="title"></h2><span class="muted" id="description"></span></div><span class="pill" id="difficulty"></span></div>
 <div class="legend"><span><i class="dot"></i> Terminal disponível</span><span><i class="dot good"></i> Ligação aceita</span><span>Arraste de um terminal até outro ou toque em dois terminais.</span></div>
@@ -36,7 +86,7 @@ ul{padding-left:22px}.safety{border-left:4px solid #f59e0b}.footer{text-align:ce
 <section class="card"><h2>🎓 Escola Técnica — Alunos e Turmas</h2><p class="muted">Gerencie cursos, turmas, matrículas, aulas práticas, frequência e agendamentos. Os alunos têm um portal próprio com login.</p><div class="actions"><a href="./aluno.html" style="display:inline-block;text-decoration:none;border-radius:10px;border:1px solid #3b82f6;padding:10px 14px;background:#1d4ed8;color:white">Portal do aluno →</a><a href="./escola.html" style="display:inline-block;text-decoration:none;border-radius:10px;border:1px solid #2a3c5c;padding:10px 14px;background:#1d3150;color:white">Coordenação / Escola →</a></div></section>
 \n<section class="card"><h2>O que você vai aprender</h2><ul><li>Interruptor simples e retorno da lâmpada.</li><li>Duas lâmpadas em paralelo.</li><li>Tomada: fase, neutro e condutor de proteção (PE).</li><li>Comando de lâmpada por dois pontos com interruptores paralelos (three-way).</li><li>Comando por três ou mais pontos com interruptores paralelos e intermediário (four-way).</li></ul></section>
 <section class="card safety"><h2>Segurança em primeiro lugar</h2><p>Este é um simulador conceitual, sem tensão elétrica real. Não use o jogo como instrução suficiente para executar instalações. Serviços reais exigem capacitação, projeto, desenergização, verificação de ausência de tensão, proteções e orientação profissional. Estude a ABNT NBR 5410 e a NR-10 com seu instrutor.</p></section>
-</main><div class="footer">Eletricista_senai • Projeto educacional independente • Versão 0.2</div>
+</main><div class="footer">⚡ Eletricista_senai • Projeto educacional independente • Versão 0.3</div><script>let installPrompt;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();installPrompt=e;const b=document.getElementById("installApp");if(b)b.style.display="inline-block"});window.addEventListener("appinstalled",()=>{const b=document.getElementById("installApp");if(b)b.textContent="Aplicativo instalado ✓"});async function installEletricista(){if(!installPrompt)return;installPrompt.prompt();await installPrompt.userChoice;installPrompt=null}</script><script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}</script>
 <script>
 const challenges=[
 {id:1,title:"Nível 1 — Interruptor simples",difficulty:"Iniciante",desc:"Conecte fase ao interruptor, retorno à lâmpada e neutro à carga.",hint:"A fase alimenta a entrada do interruptor; a saída comandada (retorno) segue para a lâmpada; o neutro vai diretamente à lâmpada.",nodes:[["F","Fase",120,115],["S","Interruptor simples",390,115],["L","Lâmpada",680,115],["N","Neutro",680,300]],edges:[["F","S"],["S","L"],["L","N"]],explain:"Correto! Você identificou fase, interruptor, retorno e neutro no circuito de comando simples."},
