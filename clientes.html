@@ -33,7 +33,7 @@ a{color:#93c5fd}@media(max-width:600px){main{padding:10px}.card{padding:13px}}
 const API="https://pzkwxlxhawrbnjbsdxpo.supabase.co/functions/v1/eletricista-portal";
 const form=document.getElementById("requestForm"),result=document.getElementById("result"),btn=document.getElementById("submitBtn");
 form.addEventListener("submit",async e=>{e.preventDefault();btn.disabled=true;btn.textContent="Enviando...";
-try{const data=Object.fromEntries(new FormData(form).entries());const r=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});const out=await r.json();if(!r.ok)throw new Error(out.error||"Falha no cadastro.");
+try{const data=Object.fromEntries(new FormData(form).entries());const r=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json","apikey":"sb_publishable_BcTki-0Wb62BvddGw68cow_dqJvY_8o"},body:JSON.stringify(data)});const out=await r.json();if(!r.ok)throw new Error(out.error||"Falha no cadastro.");
 const link=location.origin+location.pathname.replace(/[^/]*$/,"")+"portal.html?token="+out.portal_token;
 result.className="status good";result.innerHTML="Cadastro recebido! Seu número de projeto é "+out.project.id.slice(0,8).toUpperCase()+".\n\nGuarde o link exclusivo para acompanhar o andamento:";
 const a=document.createElement("a");a.href=link;a.textContent="Abrir acompanhamento do meu projeto";a.className="btn primary";a.style.marginTop="10px";a.target="_blank";result.appendChild(document.createElement("br"));result.appendChild(a);
