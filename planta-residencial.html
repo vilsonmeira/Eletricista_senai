@@ -3,6 +3,36 @@
 <style>
 :root{color-scheme:dark;--bg:#0b1220;--panel:#142139;--line:#2a3c5c;--muted:#a8b6cc;--blue:#60a5fa;--yellow:#facc15}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#1a3152,var(--bg) 55%);font:15px/1.5 system-ui,Arial;color:#f8fafc}header{text-align:center;padding:20px;background:#0c1729;border-bottom:1px solid var(--line)}h1{margin:4px;font-size:clamp(24px,5vw,36px)}main{max-width:1200px;margin:auto;padding:14px;display:grid;gap:14px}.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}label{display:grid;gap:5px;color:#dbeafe}input,select{width:100%;padding:9px;border:1px solid var(--line);border-radius:9px;background:#0b1729;color:white;font:inherit}button,.link{border:1px solid var(--line);border-radius:9px;padding:9px 12px;background:#1d3150;color:white;font:inherit;cursor:pointer;text-decoration:none;display:inline-block}button.primary{background:#1d4ed8;border-color:#3b82f6}.toolbar{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.toolbar button.active{outline:2px solid var(--yellow);background:#334155}.planwrap{overflow:auto;background:#091426;border:1px solid var(--line);border-radius:12px;padding:8px;touch-action:pan-x pan-y}svg{display:block;max-width:100%;height:auto;margin:auto;touch-action:pan-x pan-y}.room{fill:#142139;stroke:#cbd5e1;stroke-width:5}.room-label{fill:#e2e8f0;font-size:17px;font-weight:600;pointer-events:none}.measure{fill:#93c5fd;font-size:12px;pointer-events:none}.point{cursor:move}.point text{font-size:16px;font-weight:bold;paint-order:stroke;stroke:#091426;stroke-width:3px;stroke-linejoin:round}.point.selected circle{stroke:#fff;stroke-width:3}.muted{color:var(--muted)}.stats{display:flex;gap:10px;flex-wrap:wrap}.stat{background:#0b1729;border:1px solid var(--line);padding:9px 12px;border-radius:10px}.rooms{display:flex;gap:7px;flex-wrap:wrap}.rooms button.active{background:#1d4ed8}.warning{border-left:4px solid #f59e0b}.actions{display:flex;gap:8px;flex-wrap:wrap}.small{font-size:12px;color:var(--muted)}@media(max-width:600px){main{padding:9px}.card{padding:12px}svg{max-width:none}}
 @media print{body{background:white;color:black}.card{background:white;color:black;border:1px solid #999;break-inside:avoid}.muted,.small{color:#444}header{background:white;color:black}.toolbar,.actions,.no-print{display:none!important}.planwrap{background:white}svg .room{fill:#fff;stroke:#222}svg text{fill:#111!important}}
+
+/* Visual 3D isométrico + identidade gibi */
+:root{color-scheme:light;--bg:#f5d34f;--panel:#fff9e6;--line:#182847;--muted:#42516b;--blue:#174ea6;--yellow:#ffd43b}
+body{background:radial-gradient(circle at top,#fff0a8,#f2c94c 70%);color:#172544;font-family:"Trebuchet MS",system-ui,sans-serif}
+header{background:#174ea6;color:#fff;border-bottom:5px solid #172544;box-shadow:0 6px 0 #172544;padding:20px 12px}
+header h1{font-weight:1000;letter-spacing:.4px;text-shadow:3px 3px 0 #172544}
+header .muted{color:#eaf2ff;font-weight:700}
+header:after{content:"👷‍♂️  Vamos montar sua casa! Escolha os cômodos e distribua os pontos elétricos como um verdadeiro projetista.";display:block;max-width:760px;margin:16px auto 0;padding:12px 16px;background:#fff9e6;color:#172544;border:3px solid #172544;border-radius:18px;box-shadow:4px 4px 0 #172544;font-weight:900}
+main{max-width:1200px;padding:16px}
+.card{background:#fff9e6;color:#172544;border:3px solid #172544;border-radius:18px;box-shadow:5px 5px 0 #172544}
+.card h2{color:#174ea6;font-weight:1000}
+.muted,label{color:#34445f}
+input,select{background:#fff;color:#172544;border:2px solid #172544;border-radius:10px}
+button,.link{background:#fff;color:#172544;border:2px solid #172544;border-radius:11px;font-weight:900;box-shadow:3px 3px 0 #172544}
+button.primary{background:#174ea6;color:#fff;border-color:#172544}
+.toolbar button.active,.rooms button.active{background:#ffd43b;color:#172544;outline:2px solid #172544}
+.stat{background:#fff0b8;color:#172544;border:2px solid #172544;border-radius:12px;box-shadow:2px 2px 0 #172544}
+.planwrap{background:linear-gradient(145deg,#dcecff,#b8d5f2);border:3px solid #172544;border-radius:16px;box-shadow:inset 0 0 0 3px #fff,0 5px 0 #172544;padding:14px;perspective:1300px}
+#plan{transform:perspective(1300px) rotateX(43deg) rotateZ(-3deg) scale(.9);transform-origin:50% 50%;filter:drop-shadow(12px 18px 5px #17254455);overflow:visible}
+.room{fill:#fff4cf;stroke:#172544;stroke-width:7;filter:drop-shadow(5px 7px 0 #172544)}
+.room-label{fill:#174ea6;font-weight:1000;paint-order:stroke;stroke:#fff9e6;stroke-width:4px}
+.measure{fill:#172544;font-weight:900}
+.point circle{stroke:#172544;stroke-width:4;filter:drop-shadow(2px 3px 0 #172544)}
+.point text{font-weight:1000;fill:#172544;stroke:#fff;stroke-width:2px;paint-order:stroke}
+.point.selected circle{stroke:#e63946;stroke-width:6}
+.warning{border-left:8px solid #e63946}
+.small{color:#42516b}
+@media(max-width:700px){main{padding:10px}.card{padding:12px}header:after{font-size:13px;margin:12px 8px 0}#plan{transform:perspective(1000px) rotateX(38deg) rotateZ(-2deg) scale(.88)}.planwrap{padding:4px}}
+@media print{body{background:#fff}#plan{transform:none;filter:none}.card{box-shadow:none}}
+
 </style></head><body><header><div style="font-size:32px">📐⚡</div><h1>DESENHISTA DE PLANTA RESIDENCIAL</h1><div class="muted">Monte os cômodos, dimensione e posicione os pontos elétricos com toque ou mouse</div></header>
 <main>
 <section class="card no-print"><h2>👥 Cadastro e gestão do projeto</h2><div class="actions"><a class="link" href="./clientes.html">Cadastro de cliente</a><a class="link" href="./gestao.html">Painel administrativo</a></div></section>
