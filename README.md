@@ -33,3 +33,13 @@ Adicionar diagramas interativos, mais níveis, avaliação, histórico de progre
 4. Consolidar histórico de aprendizagem e relatórios do aluno.
 
 Os resultados de medição e diagnóstico são simulados e não devem ser usados para orientar intervenções em instalações reais.
+
+
+## Integração entre módulos — versão 0.4
+
+- `core.js`: núcleo local compartilhado de progresso e histórico.
+- A bancada registra desafios concluídos no núcleo integrado, mantendo compatibilidade com os pontos antigos.
+- O painel integrado apresenta o histórico recente e consolida a pontuação.
+- Os dados ficam no armazenamento local do navegador/aparelho; não são sincronizados automaticamente entre dispositivos.
+- Para sincronização entre aparelhos e turmas, será necessária a integração autenticada com o banco de dados e políticas de acesso.
+
