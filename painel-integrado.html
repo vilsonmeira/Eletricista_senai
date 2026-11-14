@@ -41,13 +41,18 @@ li{margin:5px 0}.footer{text-align:center;padding:8px 15px 25px;color:var(--mute
 <section class="panel"><h2>Próximas conquistas</h2><ul><li>Casa 3D com circuitos reutilizáveis entre cômodos.</li><li>Quadro de distribuição didático com proteções e identificação.</li><li>Desafios de diagnóstico com feedback passo a passo.</li><li>Relatório de aprendizagem e certificado interno de conclusão.</li></ul><p class="muted">Os módulos novos serão adicionados gradualmente, preservando os recursos já existentes.</p></section>
 <section class="panel"><h2>Segurança antes de tudo</h2><p>Este aplicativo é um recurso didático e não substitui aulas práticas supervisionadas, projeto, avaliação técnica ou habilitação profissional. Nenhuma simulação autoriza executar uma instalação real. Estude os procedimentos aplicáveis da NR-10 e os requisitos da ABNT NBR 5410 com seu instrutor.</p></section>
 </main><div class="footer">Eletricista SENAI • Projeto educacional independente</div>
-<script>
-const score=Number(localStorage.getItem("eletricista-score")||0);
+<script src="./core.js"></script><script>
+const core=window.EletricistaCore?.getState();
+const legacyScore=Number(localStorage.getItem("eletricista-score")||0);
+const score=Math.max(legacyScore,core?.score||0);
 const done=Number(localStorage.getItem("eletricista-done-count")||0);
 document.getElementById("score").textContent=score;
 document.getElementById("done").textContent=Math.min(done,5)+"/5";
 document.getElementById("stage").textContent=Math.min(5,Math.floor(done/1)+1);
 document.getElementById("bar").style.width=(Math.min(done,5)/5*100)+"%";
 document.getElementById("progressText").textContent=done?("Você já concluiu "+Math.min(done,5)+" desafio(s). Continue praticando!"):"Conclua seu primeiro desafio para avançar.";
+const history=core?.history||[];
+const historyEl=document.getElementById("historyList");
+if(historyEl)historyEl.innerHTML=history.length?history.slice(0,8).map(x=>'<article class="module"><span class="ico">🏅</span><span><b>'+String(x.title).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))+'</b><small>'+(x.detail||"Atividade registrada")+' • '+new Date(x.at).toLocaleString("pt-BR")+'</small></span></article>').join(""):"Nenhuma atividade registrada ainda. Conclua uma missão para iniciar seu histórico.";
 </script>
 </body></html>
