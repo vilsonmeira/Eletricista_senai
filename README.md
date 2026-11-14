@@ -16,3 +16,20 @@ Este jogo é exclusivamente educativo. Não conecte circuitos reais com base ape
 
 ## Próximas etapas
 Adicionar diagramas interativos, mais níveis, avaliação, histórico de progresso e conteúdo alinhado ao curso.
+
+
+## Painel integrado — evolução inicial
+
+- `painel-integrado.html`: central de navegação para os módulos existentes e novos.
+- `laboratorio.html`: multímetro virtual didático e desafios de diagnóstico de falhas simuladas.
+- A bancada registra pontuação e desafios concluídos no armazenamento local do navegador.
+- O service worker inclui os novos módulos e os principais módulos existentes no cache da aplicação.
+
+### Próximas etapas de integração
+
+1. Unificar os dados da planta, circuitos e projeto residencial.
+2. Criar quadro de distribuição didático com validação de proteções.
+3. Evoluir os componentes 2D para uma casa 3D interativa com circuitos compartilhados.
+4. Consolidar histórico de aprendizagem e relatórios do aluno.
+
+Os resultados de medição e diagnóstico são simulados e não devem ser usados para orientar intervenções em instalações reais.
