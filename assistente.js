@@ -27,7 +27,7 @@ root.innerHTML=`
 </style>
 <button id="esa-launch" type="button" aria-label="Abrir assistente Eletricista SENAI">🔴 Alexa • Assistente</button>
 <section id="esa-panel" role="dialog" aria-label="Assistente Eletricista SENAI" aria-modal="false">
- <div id="esa-head"><div>⚡ Assistente Eletricista SENAI<small>Pesquisa técnica • Dicionário • Voz</small></div><button id="esa-close" type="button" aria-label="Fechar">×</button></div>
+ <div id="esa-head"><div>⚡ Alexa • Eletricista SENAI<small>Pesquisa técnica • Dicionário • Voz</small></div><button id="esa-close" type="button" aria-label="Fechar">×</button></div>
  <div id="esa-tools"><a href="./dicionario-eletricista.html">📖 Dicionário completo</a><button id="esa-search-web" type="button">🌐 Pesquisar na web</button></div>
  <div id="esa-log" aria-live="polite"><div class="esa-msg esa-bot">Olá! Posso pesquisar no dicionário técnico, explicar conceitos e ajudar a encontrar módulos deste aplicativo. Pergunte, por exemplo: “O que é DPS?” ou “Explique barramento neutro”.</div></div>
  <form id="esa-form"><input id="esa-query" autocomplete="off" placeholder="Digite sua dúvida ou termo..." aria-label="Pergunta ou termo"/><button id="esa-mic" type="button" title="Falar">🎙️</button><button id="esa-send" type="submit">Enviar</button></form>
@@ -37,12 +37,13 @@ document.body.appendChild(root);
 const panel=root.querySelector('#esa-panel'),log=root.querySelector('#esa-log'),input=root.querySelector('#esa-query');
 const open=()=>{panel.classList.add('open');input.focus()};root.querySelector('#esa-launch').onclick=()=>panel.classList.toggle('open');root.querySelector('#esa-close').onclick=()=>panel.classList.remove('open');
 function add(text,who='bot'){const el=document.createElement('div');el.className='esa-msg esa-'+who;el.textContent=text;log.appendChild(el);log.scrollTop=log.scrollHeight}
-function norm(s){return String(s||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase()}
+function norm(s){return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
 function respond(q){
  const query=String(q||'').trim();if(!query)return;add(query,'user');
  const dict=window.EletricistaDictionary;
- const cleaned=norm(query).replace(/^(o que e|o que significa|explique|explique o|explique a|defina|significado de|para que serve|fale sobre)\\s+/,'').replace(/^(o|a|os|as)\\s+/,'').replace(/[?!.,]/g,'').trim();
- const term=dict?.find(cleaned);
+ const cleaned=norm(query).replace(/^(o que e|o que significa|explique|explique o|explique a|defina|significado de|para que serve|fale sobre)\s+/,'').replace(/^(o|a|os|as)\s+/,'').replace(/[?!.,]/g,'').trim();
+ const aliases={'barramento neutro':'barramento de neutro','barramento terra':'barramento pe','fio terra':'aterramento','fio neutro':'neutro','quadro de luz':'quadro de distribuição','three way':'interruptor paralelo','four way':'interruptor intermediário'};
+ const term=dict?.find(aliases[cleaned]||cleaned);
  let answer='';
  if(term) answer=term.term+' ('+term.category+')\\n'+term.definition;
  else if(dict){const hits=dict.search(query).slice(0,4);if(hits.length)answer='Encontrei estes termos no dicionário:\\n'+hits.map(x=>'• '+x.term+': '+x.definition).join('\\n');}
