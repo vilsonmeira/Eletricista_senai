@@ -39,4 +39,5 @@ result.className="status good";result.innerHTML="Cadastro recebido! Seu número 
 const a=document.createElement("a");a.href=link;a.textContent="Abrir acompanhamento do meu projeto";a.className="btn primary";a.style.marginTop="10px";a.target="_blank";result.appendChild(document.createElement("br"));result.appendChild(a);
 const copy=document.createElement("button");copy.textContent="Copiar link";copy.style.marginLeft="8px";copy.onclick=()=>navigator.clipboard?.writeText(link);result.appendChild(copy);form.reset();
 }catch(err){result.className="status bad";result.textContent=err.message;}finally{btn.disabled=false;btn.textContent="Enviar solicitação";}});
-</script></body></html>
+</script><script src="./dicionario.js"></script><script src="./assistente.js"></script>
+</body></html>
