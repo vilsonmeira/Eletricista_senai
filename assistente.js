@@ -41,7 +41,8 @@ function norm(s){return String(s||'').normalize('NFD').replace(/[\\u0300-\\u036f
 function respond(q){
  const query=String(q||'').trim();if(!query)return;add(query,'user');
  const dict=window.EletricistaDictionary;
- const term=dict?.find(query.replace(/^(o que e|o que significa|explique|defina|significado de|para que serve)\\s+/i,''));
+ const cleaned=norm(query).replace(/^(o que e|o que significa|explique|explique o|explique a|defina|significado de|para que serve|fale sobre)\\s+/,'').replace(/^(o|a|os|as)\\s+/,'').replace(/[?!.,]/g,'').trim();
+ const term=dict?.find(cleaned);
  let answer='';
  if(term) answer=term.term+' ('+term.category+')\\n'+term.definition;
  else if(dict){const hits=dict.search(query).slice(0,4);if(hits.length)answer='Encontrei estes termos no dicionário:\\n'+hits.map(x=>'• '+x.term+': '+x.definition).join('\\n');}
