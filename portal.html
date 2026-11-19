@@ -36,4 +36,5 @@ document.getElementById("main").innerHTML='<div class="row"><h2>'+esc(p.title)+'
 document.getElementById("updates").innerHTML=(d.updates||[]).length?d.updates.map(u=>'<article class="item"><div class="row"><b>'+esc(u.title)+'</b><small>'+new Date(u.created_at).toLocaleString("pt-BR")+'</small></div><p>'+esc(u.description)+'</p>'+(u.progress!=null?'<small>Andamento informado: '+u.progress+'%</small>':'')+'</article>').join(""):'Ainda não há atualizações publicadas.';
 }catch(e){document.getElementById("main").textContent=e.message;}}
 loadProject();setInterval(loadProject,10000);
-</script></body></html>
+</script><script src="./dicionario.js"></script><script src="./assistente.js"></script>
+</body></html>
