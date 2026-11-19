@@ -266,7 +266,7 @@ function draw(){
  connections.forEach(e=>{
   const a=nodeById(e.a),b=nodeById(e.b);if(!a||!b)return;
   const pa=portPoint(a,e.b),pb=portPoint(b,e.a);
-  svgEl("line",{x1:pa.x,y1:pa.y,x2:pb.x,y2:pb.y,class:"wire",stroke:wireColors[e.color],"stroke-width":7,"stroke-linecap":"round"},wires);
+  const wireColor=wireColors[e.color]||"#222222";\n   const line=svgEl("line",{x1:pa.x,y1:pa.y,x2:pb.x,y2:pb.y,class:"wire wire-"+e.color,"stroke":wireColor,"stroke-width":8,"stroke-linecap":"round"},wires);\n   /* Inline style overrides older .board .wire CSS rules that forced every conductor to blue. */\n   line.style.setProperty("stroke",wireColor,"important");\n   line.style.setProperty("stroke-width","8px","important");\n   line.style.setProperty("filter","drop-shadow(0 0 1px #fff)");
  });
  nodes.innerHTML="";
  c.nodes.forEach(n=>{const g=svgEl("g",{},nodes);drawComponent(n,g);
