@@ -36,6 +36,7 @@ li{margin:5px 0}.footer{text-align:center;padding:8px 15px 25px;color:var(--mute
 <a class="module" href="./clientes.html"><span class="ico">👥</span><span><b>5. Clientes e imóveis</b><small>Cadastro e acompanhamento de projetos.</small></span></a>
 <a class="module" href="./aluno.html"><span class="ico">🎓</span><span><b>6. Portal do aluno</b><small>Agenda, aulas e atividades da turma.</small></span></a>
 <a class="module" href="./escola.html"><span class="ico">🏫</span><span><b>7. Coordenação da escola</b><small>Cursos, turmas, matrículas e agenda.</small></span></a>
+<a class="module" href="./dicionario-eletricista.html"><span class="ico">📖</span><span><b>9. Dicionário do eletricista</b><small>Busca técnica por componentes, normas, ferramentas e conceitos.</small></span></a>
 <a class="module" href="./gestao.html"><span class="ico">🗂️</span><span><b>8. Gestão de projetos</b><small>Visão administrativa dos atendimentos.</small></span></a>
 </div></section>
 <section class="panel"><h2>Próximas conquistas</h2><ul><li>Casa 3D com circuitos reutilizáveis entre cômodos.</li><li>Quadro de distribuição didático com proteções e identificação.</li><li>Desafios de diagnóstico com feedback passo a passo.</li><li>Relatório de aprendizagem e certificado interno de conclusão.</li></ul><p class="muted">Os módulos novos serão adicionados gradualmente, preservando os recursos já existentes.</p></section>
@@ -55,4 +56,5 @@ const history=core?.history||[];
 const historyEl=document.getElementById("historyList");
 if(historyEl)historyEl.innerHTML=history.length?history.slice(0,8).map(x=>'<article class="module"><span class="ico">🏅</span><span><b>'+String(x.title).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))+'</b><small>'+(x.detail||"Atividade registrada")+' • '+new Date(x.at).toLocaleString("pt-BR")+'</small></span></article>').join(""):"Nenhuma atividade registrada ainda. Conclua uma missão para iniciar seu histórico.";
 </script>
+<script src="./dicionario.js"></script><script src="./assistente.js"></script>
 </body></html>
