@@ -33,4 +33,5 @@ function renderAppointments(rows){$("appointmentList").innerHTML=rows.map(a=>'<a
 $("courseForm").onsubmit=async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.target));d.workload_hours=Number(d.workload_hours||0);d.created_by=user.id;const {error}=await sb.from("es_courses").insert(d);if(error)message(error.message,true);else{e.target.reset();message("Curso cadastrado.");refresh()}};
 $("classForm").onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target),d=Object.fromEntries(f);d.weekdays=f.getAll("weekdays");d.capacity=Number(d.capacity||20);d.created_by=user.id;const {error}=await sb.from("es_classes").insert(d);if(error)message(error.message,true);else{e.target.reset();message("Turma criada.");refresh()}};
 $("sessionForm").onsubmit=async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.target));d.starts_at=new Date(d.starts_at).toISOString();d.ends_at=new Date(d.ends_at).toISOString();d.created_by=user.id;const {error}=await sb.from("es_class_sessions").insert(d);if(error)message(error.message,true);else{e.target.reset();message("Aula adicionada à agenda.");}};
-</script></body></html>
+</script><script src="./dicionario.js"></script><script src="./assistente.js"></script>
+</body></html>
