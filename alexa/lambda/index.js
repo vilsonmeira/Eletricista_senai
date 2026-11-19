@@ -66,7 +66,6 @@ const AnswerIntentHandler = {
   handle(handlerInput) {
     const answer=normalize(Alexa.getSlotValue(handlerInput.requestEnvelope,'answer') || '');
     if(answer.includes('terra') || answer==='pe') return speak('Correto! O barramento PE recebe os condutores de proteção. Próxima pergunta: qual dispositivo detecta corrente diferencial residual?');
-    if(answer.includes('dr') || answer.includes('diferencial')) return speak('Correto! O DR detecta corrente diferencial residual. Quer continuar o quiz?');
     if(answer.includes('neutro') || answer.includes('fase')) return speak('Não é essa. A resposta é barramento de proteção PE, também chamado terra. Neutro e PE têm funções diferentes.');
     return speak('Não consegui entender. Você pode responder terra, neutro ou fase.');
   }
