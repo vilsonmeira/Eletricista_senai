@@ -28,7 +28,7 @@ root.innerHTML=`
 <button id="esa-launch" type="button" aria-label="Abrir assistente Eletricista SENAI">🔴 Alexa • Assistente</button>
 <section id="esa-panel" role="dialog" aria-label="Assistente Eletricista SENAI" aria-modal="false">
  <div id="esa-head"><div>⚡ Alexa • Eletricista SENAI<small>Pesquisa técnica • Dicionário • Voz</small></div><button id="esa-close" type="button" aria-label="Fechar">×</button></div>
- <div id="esa-tools"><a href="./dicionario-eletricista.html">📖 Dicionário completo</a><button id="esa-search-web" type="button">🌐 Pesquisar na web</button></div>
+ <div id="esa-tools"><a href="./dicionario-eletricista.html">📖 Dicionário completo</a><a href="./alexa.html">🔊 Skill Amazon</a><button id="esa-search-web" type="button">🌐 Pesquisar na web</button></div>
  <div id="esa-log" aria-live="polite"><div class="esa-msg esa-bot">Olá! Posso pesquisar no dicionário técnico, explicar conceitos e ajudar a encontrar módulos deste aplicativo. Pergunte, por exemplo: “O que é DPS?” ou “Explique barramento neutro”.</div></div>
  <form id="esa-form"><input id="esa-query" autocomplete="off" placeholder="Digite sua dúvida ou termo..." aria-label="Pergunta ou termo"/><button id="esa-mic" type="button" title="Falar">🎙️</button><button id="esa-send" type="submit">Enviar</button></form>
  <div id="esa-foot">Assistente de voz do aplicativo: não é uma conexão direta com a caixa Echo. A Skill Alexa na Amazon precisa ser ativada separadamente. Pesquisas externas abrem resultados no navegador. Conteúdo educacional; não substitui projeto ou profissional habilitado.</div>
