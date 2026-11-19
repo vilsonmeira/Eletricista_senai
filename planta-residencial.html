@@ -66,4 +66,5 @@ $("save").onclick=()=>{localStorage.setItem("eletricistaSenaiPlanta",JSON.string
 $("load").onclick=()=>{let d=localStorage.getItem("eletricistaSenaiPlanta");if(!d)return $("saveStatus").textContent="Nenhum projeto salvo neste aparelho.";rooms=JSON.parse(d);selected=0;render();$("saveStatus").textContent="Projeto carregado."};
 $("export").onclick=()=>{let blob=new Blob([JSON.stringify(rooms,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="planta-eletricista-senai.json";a.click();URL.revokeObjectURL(a.href)};
 addRoomData("Sala",4,3);addRoomData("Cozinha",3,2.5);selected=0;render();
-</script></body></html>
+</script><script src="./dicionario.js"></script><script src="./assistente.js"></script>
+</body></html>
