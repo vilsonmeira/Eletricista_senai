@@ -1,0 +1,183 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "eletricista senai",
+      "intents": [
+        {
+          "name": "AskTopicIntent",
+          "slots": [
+            {
+              "name": "topic",
+              "type": "TOPIC"
+            }
+          ],
+          "samples": [
+            "explique {topic}",
+            "o que é {topic}",
+            "para que serve {topic}",
+            "quero estudar {topic}",
+            "me ensine sobre {topic}",
+            "fale sobre {topic}"
+          ]
+        },
+        {
+          "name": "QuizIntent",
+          "slots": [],
+          "samples": [
+            "iniciar quiz",
+            "começar um exercício",
+            "fazer perguntas",
+            "vamos estudar",
+            "me teste"
+          ]
+        },
+        {
+          "name": "AnswerIntent",
+          "slots": [
+            {
+              "name": "answer",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "minha resposta é {answer}",
+            "respondo {answer}",
+            "a resposta é {answer}"
+          ]
+        },
+        {
+          "name": "SafetyIntent",
+          "slots": [],
+          "samples": [
+            "fale sobre segurança",
+            "quais são os cuidados",
+            "como trabalhar com segurança",
+            "explique a NR dez"
+          ]
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "slots": [],
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "slots": [],
+          "samples": []
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "slots": [],
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "slots": [],
+          "samples": []
+        }
+      ],
+      "types": [
+        {
+          "name": "TOPIC",
+          "values": [
+            {
+              "name": {
+                "value": "quadro de distribuição"
+              }
+            },
+            {
+              "name": {
+                "value": "quadro de luz"
+              }
+            },
+            {
+              "name": {
+                "value": "disjuntor"
+              }
+            },
+            {
+              "name": {
+                "value": "disjuntores"
+              }
+            },
+            {
+              "name": {
+                "value": "DR"
+              }
+            },
+            {
+              "name": {
+                "value": "DPS"
+              }
+            },
+            {
+              "name": {
+                "value": "aterramento"
+              }
+            },
+            {
+              "name": {
+                "value": "barramento"
+              }
+            },
+            {
+              "name": {
+                "value": "barramentos"
+              }
+            },
+            {
+              "name": {
+                "value": "neutro"
+              }
+            },
+            {
+              "name": {
+                "value": "fase"
+              }
+            },
+            {
+              "name": {
+                "value": "cores dos fios"
+              }
+            },
+            {
+              "name": {
+                "value": "fios"
+              }
+            },
+            {
+              "name": {
+                "value": "interruptor"
+              }
+            },
+            {
+              "name": {
+                "value": "tomada"
+              }
+            },
+            {
+              "name": {
+                "value": "tomadas"
+              }
+            },
+            {
+              "name": {
+                "value": "iluminação"
+              }
+            },
+            {
+              "name": {
+                "value": "NR dez"
+              }
+            },
+            {
+              "name": {
+                "value": "NBR 5410"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
