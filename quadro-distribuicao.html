@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0755ad">
+<title>Quadro de Distribuição | Eletricista SENAI</title>
+<style>
+:root{--navy:#102b50;--blue:#075eb1;--yellow:#ffc928;--paper:#fffdf7;--muted:#50647e;--red:#df3b36}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#f8edda,#cbd5e1);font:15px/1.5 "Trebuchet MS",system-ui;color:var(--navy)}
+header{background:linear-gradient(115deg,#063b82,#0875d1,#063b82);color:#fff;text-align:center;padding:20px 14px;border-bottom:6px solid var(--yellow);box-shadow:0 6px 0 var(--navy)}
+header h1{margin:4px;font-size:clamp(24px,5vw,38px);text-shadow:3px 3px 0 #062b5a}header p{margin:0;font-weight:700}
+main{max-width:1100px;margin:auto;padding:16px;display:grid;gap:16px}.card{background:linear-gradient(145deg,#fffdf7,#eee6d7);border:3px solid #12376b;border-radius:17px;padding:17px;box-shadow:0 5px 0 #0a2a54,0 12px 22px #102b5022}
+h2{color:#075eb1;margin:0 0 9px;font-size:21px}.muted{color:var(--muted)}button,select,input{font:inherit;border:2px solid var(--navy);border-radius:10px;padding:9px 11px}button{background:linear-gradient(#238be5,#0755ad);color:#fff;font-weight:900;box-shadow:0 3px 0 #082653;cursor:pointer}button:active{transform:translateY(2px);box-shadow:0 1px 0 #082653}button.secondary{background:#fff;color:var(--navy)}button.warn{background:linear-gradient(#f66,#c22)}.toolbar{display:flex;gap:8px;flex-wrap:wrap}.toolbar button{flex:1;min-width:135px}
+.railbox{background:linear-gradient(135deg,#c9c4b9,#f2eee5,#bcb7ad);border:4px solid var(--navy);border-radius:14px;padding:15px;overflow-x:auto}
+.rail{min-width:610px;height:150px;position:relative;border:2px dashed #52647b;border-radius:8px;padding:17px 12px;display:flex;align-items:center;gap:8px;background:linear-gradient(#eee,#d4d0c7)}
+.rail:before{content:"TRILHO DIN";position:absolute;left:12px;top:3px;font-size:10px;font-weight:900;color:#50647e;letter-spacing:1px}
+.device{height:105px;min-width:75px;max-width:100px;flex:1;background:linear-gradient(110deg,#fff,#dce2e8);border:2px solid #33465f;border-radius:7px;box-shadow:3px 4px 0 #586579;position:relative;text-align:center;padding:7px 4px 4px;color:#182b43;font-size:11px;font-weight:900}
+.device .lever{height:29px;width:24px;margin:5px auto;background:#d9aa24;border:2px solid #5b4a22;border-radius:5px}
+.device .holes{display:flex;justify-content:space-around;margin-top:7px}.device .holes i{width:10px;height:10px;border-radius:50%;background:#263449;border:2px solid #9aa5b3}
+.device small{display:block;font-size:9px;font-weight:700;color:#52647b}
+.device.dps{background:linear-gradient(110deg,#d9e8f7,#a8c7e8)}.device.dr{background:linear-gradient(110deg,#fff,#e7e3d9)}.device.main{border-top:5px solid #df3b36}
+.empty{color:#65758a;font-weight:800;text-align:center;width:100%}
+.busbars{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:13px}.bus{background:#fff;border:2px solid var(--navy);border-radius:10px;padding:10px;text-align:center;font-weight:900}.bar{height:12px;border:2px solid #5b4a22;border-radius:4px;margin:8px 0 4px;background:#c58b27}.bus.n .bar{background:#1687e8;border-color:#0755ad}.bus.pe .bar{background:repeating-linear-gradient(90deg,#1b9b51 0 12px,#f5d22b 12px 24px);border-color:#17663b}
+.component-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:9px}.component-list button{min-height:66px}.settings{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}.field{display:grid;gap:5px;font-weight:900}.field select,.field input{width:100%;background:#fff;color:var(--navy)}
+.circuits{display:grid;gap:8px}.circuit{display:grid;grid-template-columns:1fr 100px 100px;gap:8px;align-items:center;background:#fff;border:1px solid #a9b8c9;border-radius:9px;padding:8px}.circuit select{width:100%;background:#fff;color:var(--navy);padding:6px}
+.status{padding:12px;border:3px solid var(--navy);border-radius:10px;background:#fff;font-weight:800;margin-top:12px}.status.ok{background:#fff2b8;border-color:#b78300}.status.bad{background:#ffe3e0;border-color:var(--red)}
+.note{border-left:7px solid #e6a900;background:#fff8dc;padding:12px;border-radius:8px}.tag{display:inline-block;background:#ffdf58;border:1px solid var(--navy);border-radius:99px;padding:4px 9px;font-weight:900;font-size:12px}
+@media(max-width:600px){main{padding:10px}.card{padding:13px}.busbars{grid-template-columns:1fr}.circuit{grid-template-columns:1fr 85px 85px;font-size:12px}.rail{min-width:590px}}
+</style>
+</head>
+<body>
+<header><div style="font-size:34px">⚡</div><h1>QUADRO DE DISTRIBUIÇÃO</h1><p>Oficina virtual • Montagem didática de quadro elétrico</p></header>
+<main>
+<section class="card"><span class="tag">MÓDULO NOVO</span><h2>Monte seu quadro</h2><p class="muted">Adicione os dispositivos ao trilho DIN, organize os circuitos e identifique os barramentos. O quadro é uma representação didática inspirada na bancada de treinamento.</p>
+<div class="settings">
+<label class="field">Alimentação do exercício<select id="supply"><option value="mono">Monofásica</option><option value="bi">Bifásica</option><option value="tri">Trifásica</option></select></label>
+<label class="field">Tensão de referência<select id="voltage"><option>127/220 V</option><option>220/380 V</option><option>Somente 220 V</option></select></label>
+<label class="field">Quantidade de circuitos<input id="circuitCount" type="number" min="1" max="12" value="4"></label>
+</div></section>
+<section class="card"><h2>1. Componentes para instalar</h2><div class="component-list">
+<button data-add="main">＋ Disjuntor geral</button><button data-add="dr">＋ Dispositivo DR</button><button data-add="dps">＋ DPS</button><button data-add="breaker">＋ Disjuntor de circuito</button>
+<button class="secondary" data-add="rail">＋ Trilho DIN extra</button><button class="secondary" data-add="neutral">＋ Barramento neutro</button><button class="secondary" data-add="earth">＋ Barramento terra (PE)</button>
+</div></section>
+<section class="card"><h2>2. Quadro montado</h2><div class="railbox"><div class="rail" id="rail"><div class="empty">Adicione componentes para começar a montagem</div></div><div class="busbars">
+<div class="bus"><div>FASE (L)</div><div class="bar"></div><small>Distribuição de fases</small></div>
+<div class="bus n"><div>NEUTRO (N)</div><div class="bar"></div><small>Barramento isolado</small></div>
+<div class="bus pe"><div>PROTEÇÃO (PE)</div><div class="bar"></div><small>Condutor de proteção</small></div>
+</div></div><div class="toolbar" style="margin-top:14px"><button class="secondary" id="undo">↶ Remover último</button><button class="warn" id="clear">Limpar quadro</button></div><p class="muted" id="countLabel">0 componentes instalados</p></section>
+<section class="card"><h2>3. Distribuição dos circuitos</h2><p class="muted">Escolha uma aplicação e uma proteção nominal de referência para cada circuito. A seleção é apenas parte do exercício; não dimensiona uma instalação real.</p><div id="circuits" class="circuits"></div></section>
+<section class="card"><h2>4. Conferência didática</h2><div class="toolbar"><button class="primary" id="check">Conferir montagem</button><button class="secondary" id="lesson">Ver explicação dos barramentos</button></div><div id="status" class="status">Monte o quadro e toque em “Conferir montagem”.</div><div id="explain" class="muted" style="margin-top:10px"></div></section>
+<section class="card note"><h2>⚠️ Segurança e aprendizagem</h2><p>Este simulador não fornece projeto executivo nem valida dimensionamento, seletividade, capacidade de interrupção, seção de cabos, aterramento ou coordenação das proteções. A posição e a ligação de DR/DPS dependem do esquema de aterramento, do projeto e das instruções do fabricante. Nunca reproduza uma montagem real apenas com base neste exercício. Serviços reais exigem profissional habilitado, desenergização e procedimentos da NR-10 e ABNT NBR 5410.</p></section>
+<div class="toolbar"><button class="secondary" onclick="location.href='./index.html'">← Voltar ao início</button></div>
+</main>
+<script>
+(()=>{'use strict';
+const rail=document.getElementById('rail'),status=document.getElementById('status'),explain=document.getElementById('explain');
+let items=[];
+const names={main:'DISJUNTOR GERAL',dr:'DR / IDR',dps:'DPS',breaker:'DISJUNTOR',rail:'TRILHO DIN',neutral:'BARRAMENTO N',earth:'BARRAMENTO PE'};
+const desc={main:'Proteção geral contra sobrecorrentes, selecionada conforme o projeto.',dr:'Proteção diferencial residual. A configuração depende do esquema e dos circuitos.',dps:'Dispositivo de proteção contra surtos, coordenado com a instalação.',breaker:'Proteção individual de um circuito.',rail:'Suporte mecânico para montagem modular.',neutral:'Ponto comum dos condutores neutros, mantendo a separação exigida do PE.',earth:'Barramento dos condutores de proteção (PE).'};
+function render(){rail.innerHTML='';if(!items.length)rail.innerHTML='<div class="empty">Adicione componentes para começar a montagem</div>';items.forEach((it,i)=>{const el=document.createElement('div');el.className='device '+it.type;el.title=desc[it.type];el.innerHTML='<div>'+names[it.type]+'</div><div class="lever"></div><small>'+(it.type==='breaker'?'C10 / C16*':it.type==='dps'?'L • N • PE':it.type==='dr'?'30 mA*':'MÓDULO')+'</small><div class="holes"><i></i><i></i></div><button aria-label="Remover '+names[it.type]+'" style="position:absolute;right:2px;top:2px;padding:0 4px;min-width:20px;font-size:11px;background:#b42318" data-remove="'+i+'">×</button>';rail.appendChild(el)});document.getElementById('countLabel').textContent=items.length+' componente(s) instalados';}
+function add(type){items.push({type});render();status.className='status';status.textContent=names[type]+' adicionado ao quadro.'}
+document.querySelectorAll('[data-add]').forEach(b=>b.addEventListener('click',()=>add(b.dataset.add)));
+rail.addEventListener('click',e=>{const b=e.target.closest('[data-remove]');if(!b)return;items.splice(Number(b.dataset.remove),1);render()});
+document.getElementById('undo').onclick=()=>{items.pop();render()};
+document.getElementById('clear').onclick=()=>{items=[];render();status.className='status';status.textContent='Quadro limpo. Comece novamente.'};
+function renderCircuits(){const n=Math.max(1,Math.min(12,Number(document.getElementById('circuitCount').value)||1));const root=document.getElementById('circuits');root.innerHTML='';for(let i=1;i<=n;i++){const row=document.createElement('div');row.className='circuit';row.innerHTML='<strong>Circuito '+String(i).padStart(2,'0')+'</strong><select aria-label="Aplicação do circuito"><option>Iluminação</option><option>Tomadas de uso geral</option><option>Tomada de uso específico</option><option>Chuveiro / carga dedicada</option><option>Ar-condicionado</option></select><select aria-label="Proteção de referência"><option>10 A</option><option>16 A</option><option>20 A</option><option>25 A</option><option>32 A</option><option>40 A</option></select>';root.appendChild(row)}}
+document.getElementById('circuitCount').addEventListener('change',renderCircuits);renderCircuits();
+document.getElementById('check').onclick=()=>{const types=items.map(x=>x.type),has=t=>types.includes(t);const missing=[];if(!has('main'))missing.push('disjuntor geral');if(!has('dr'))missing.push('DR');if(!has('dps'))missing.push('DPS');if(!has('breaker'))missing.push('ao menos um disjuntor de circuito');if(!has('neutral'))missing.push('barramento de neutro');if(!has('earth'))missing.push('barramento de proteção PE');if(missing.length){status.className='status bad';status.textContent='Ainda falta representar: '+missing.join(', ')+'.';explain.textContent='Confira a função de cada componente antes de avançar.'}else{status.className='status ok';status.textContent='Boa! Todos os grupos de componentes didáticos estão representados.';explain.textContent='A conferência verifica apenas a presença dos elementos. Não confirma ligação correta, dimensionamento nem conformidade de um quadro real.';try{window.EletricistaCore?.record('quadro','Montagem didática de quadro','Componentes representados: '+items.length)}catch(e){}}};
+document.getElementById('lesson').onclick=()=>{explain.innerHTML='<b>Fase (L):</b> condutor(es) ativo(s) que alimentam os circuitos. <b>Neutro (N):</b> condutor de retorno do sistema, quando aplicável. <b>Proteção (PE):</b> condutor destinado à proteção contra choques. Neutro e PE têm funções diferentes e não devem ser tratados como um único barramento. A montagem e as conexões dependem do esquema de aterramento e do projeto.'};
+})();
+</script>
+</body></html>
