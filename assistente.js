@@ -25,13 +25,13 @@ root.innerHTML=`
 #esa-foot{font-size:10px;color:#52647b;padding:0 12px 10px}
 @media(max-width:480px){#esa-panel{right:8px;bottom:76px;width:calc(100vw - 16px)}#esa-launch{right:12px;bottom:12px}}
 </style>
-<button id="esa-launch" type="button" aria-label="Abrir assistente Eletricista SENAI">🔴 Assistente</button>
+<button id="esa-launch" type="button" aria-label="Abrir assistente Eletricista SENAI">🔴 Alexa • Assistente</button>
 <section id="esa-panel" role="dialog" aria-label="Assistente Eletricista SENAI" aria-modal="false">
  <div id="esa-head"><div>⚡ Assistente Eletricista SENAI<small>Pesquisa técnica • Dicionário • Voz</small></div><button id="esa-close" type="button" aria-label="Fechar">×</button></div>
  <div id="esa-tools"><a href="./dicionario-eletricista.html">📖 Dicionário completo</a><button id="esa-search-web" type="button">🌐 Pesquisar na web</button></div>
  <div id="esa-log" aria-live="polite"><div class="esa-msg esa-bot">Olá! Posso pesquisar no dicionário técnico, explicar conceitos e ajudar a encontrar módulos deste aplicativo. Pergunte, por exemplo: “O que é DPS?” ou “Explique barramento neutro”.</div></div>
  <form id="esa-form"><input id="esa-query" autocomplete="off" placeholder="Digite sua dúvida ou termo..." aria-label="Pergunta ou termo"/><button id="esa-mic" type="button" title="Falar">🎙️</button><button id="esa-send" type="submit">Enviar</button></form>
- <div id="esa-foot">Conteúdo educacional. Para pesquisas externas, abre resultados no navegador. Não substitui projeto ou profissional habilitado.</div>
+ <div id="esa-foot">Assistente de voz do aplicativo: não é uma conexão direta com a caixa Echo. A Skill Alexa na Amazon precisa ser ativada separadamente. Pesquisas externas abrem resultados no navegador. Conteúdo educacional; não substitui projeto ou profissional habilitado.</div>
 </section>`;
 document.body.appendChild(root);
 const panel=root.querySelector('#esa-panel'),log=root.querySelector('#esa-log'),input=root.querySelector('#esa-query');
