@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#174ea6"><meta name="description" content="Eletricista SENAI: jogo educativo de instalações elétricas em estilo gibi."><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="manifest" href="./manifest.webmanifest">
+<meta name="theme-color" content="#142b45"><meta name="description" content="Eletricista SENAI: jogo educativo de instalações elétricas em estilo gibi."><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="manifest" href="./manifest.webmanifest">
 <title>Eletricista Master | SENAI</title>
 <style>
 :root{color-scheme:dark;--bg:#0b1220;--panel:#142139;--line:#2a3c5c;--blue:#60a5fa;--yellow:#facc15;--red:#fb7185;--muted:#a8b6cc}
@@ -165,7 +165,7 @@ button:active,.levels button:active{transform:translateY(3px);box-shadow:0 1px 0
 .brand-header .install-btn{display:none;align-self:center;background:linear-gradient(#ffe36a,#ffbf00)!important;color:#102b50!important}
 @media(max-width:600px){.brand-header{flex-direction:column;gap:8px;text-align:center;padding:17px 12px 20px}.brand-logo{width:112px}.brand-kicker{font-size:10px}.brand-header h1{font-size:clamp(23px,7vw,31px)}.brand-header p{font-size:13px}.brand-slogan{font-size:13px}.brand-header .install-btn{margin-top:7px}}
 
-</style></head>
+</style><link rel="stylesheet" href="./vm-theme.css"></head>
 <body>
 <header class="brand-header"><img class="brand-logo" src="./icon.svg" alt="VM Soluções Elétricas"><div class="brand-copy"><div class="brand-kicker">VILSON MEIRA APRESENTA</div><h1>VM SOLUÇÕES ELÉTRICAS</h1><p>Aprendizado • Projetos • Instalações • Automação</p><div class="brand-slogan">Energia, segurança e confiança!</div></div><button id="installApp" class="install-btn" onclick="installEletricista()">＋ Instalar no celular</button></header>
 <main>
@@ -316,4 +316,4 @@ function renderLevelsOnly(){$("levels").innerHTML=challenges.map((x,i)=>'<button
 $("hint").onclick=()=>show("","Dica: "+challenges[current].hint);$("undo").onclick=()=>{connections.pop();dragFrom=null;draw();show("","Última ligação desfeita.")};$("reset").onclick=()=>{connections=[];dragFrom=null;draw();show("","Bancada limpa. Tente novamente.")};$("next").onclick=()=>{if(current<challenges.length-1){current++;render()}else show("ok","Você concluiu a trilha inicial! Novos módulos podem ampliar este laboratório.")};
 render();
 </script><script src="./dicionario.js"></script><script src="./assistente.js"></script>
-</body></html>
+<nav class="vm-bottom-nav" aria-label="Navegação principal"><a href="./index.html" aria-current="page"><span aria-hidden="true">⌂</span>Início</a><a href="./aluno.html"><span aria-hidden="true">▤</span>Aprender</a><a href="./painel-integrado.html"><span aria-hidden="true">▦</span>Módulos</a><a href="./quadro-distribuicao.html"><span aria-hidden="true">▥</span>Quadro</a><a href="./alexa.html"><span aria-hidden="true">◉</span>Alexa</a></nav></body></html>
