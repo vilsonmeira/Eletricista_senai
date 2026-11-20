@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 300" role="img" aria-labelledby="title desc">
+<title id="title">Eletricista virtual VM</title><desc id="desc">Personagem eletricista sorridente com capacete amarelo, uniforme azul e cinto de ferramentas.</desc>
+<defs>
+ <linearGradient id="blue" x2="0.8" y2="1"><stop stop-color="#238ce6"/><stop offset="1" stop-color="#073b80"/></linearGradient>
+ <linearGradient id="helmet" x2="0" y2="1"><stop stop-color="#fff27b"/><stop offset=".55" stop-color="#ffca20"/><stop offset="1" stop-color="#e99500"/></linearGradient>
+ <linearGradient id="skin" x2="0" y2="1"><stop stop-color="#ffd3a1"/><stop offset="1" stop-color="#c97843"/></linearGradient>
+ <linearGradient id="metal" x2="0" y2="1"><stop stop-color="#f8fafc"/><stop offset="1" stop-color="#8292a5"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-20%" width="160%" height="160%"><feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#071a35" flood-opacity=".35"/></filter>
+</defs>
+<g filter="url(#shadow)" stroke="#09264d" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+ <!-- legs and boots -->
+ <path d="M91 207 L83 254 L65 271 Q59 280 72 284 L119 282 Q130 277 120 267 L111 252 L127 211Z" fill="#123d78"/>
+ <path d="M139 208 L151 250 L170 265 Q184 276 170 284 L125 285 Q114 281 124 269 L125 246 L112 213Z" fill="#0a326b"/>
+ <path d="M64 267 Q83 261 111 271 L124 281 Q127 292 113 294 L61 291 Q45 286 64 267Z" fill="#62402b"/>
+ <path d="M125 269 Q148 260 169 264 L188 280 Q193 291 176 294 L127 293 Q113 290 125 269Z" fill="#62402b"/>
+ <!-- body -->
+ <path d="M75 112 Q112 94 151 113 L170 204 Q157 224 113 224 Q77 222 62 207Z" fill="url(#blue)"/>
+ <path d="M104 112 L119 138 L137 112 L128 170 L112 170Z" fill="#f8fafc"/>
+ <path d="M72 133 L42 173 L29 211 Q30 222 43 225 Q55 225 61 211 L91 174Z" fill="url(#blue)"/>
+ <path d="M153 132 L180 156 L204 137 Q216 129 222 140 Q226 151 215 160 L183 188 Q171 193 162 182 L139 161Z" fill="url(#blue)"/>
+ <!-- gloves -->
+ <path d="M29 207 Q17 203 13 217 L9 234 Q12 245 24 242 L40 230 Q48 216 29 207Z" fill="#202b3a"/>
+ <path d="M207 130 Q217 115 228 124 Q238 133 227 146 L216 159 Q204 163 198 152Z" fill="#202b3a"/>
+ <!-- neck and face -->
+ <path d="M99 89 L101 119 Q117 136 137 117 L135 88Z" fill="url(#skin)"/>
+ <ellipse cx="119" cy="76" rx="43" ry="48" fill="url(#skin)"/>
+ <!-- ears -->
+ <ellipse cx="77" cy="79" rx="9" ry="14" fill="#d9905d"/><ellipse cx="160" cy="77" rx="9" ry="14" fill="#d9905d"/>
+ <!-- hair and face details -->
+ <path d="M78 66 Q78 26 119 28 Q157 29 160 65 L149 55 Q134 62 114 55 Q99 68 84 70Z" fill="#3a241b"/>
+ <ellipse cx="103" cy="76" rx="5" ry="7" fill="#fff"/><ellipse cx="137" cy="76" rx="5" ry="7" fill="#fff"/>
+ <circle cx="104" cy="77" r="3" fill="#142b45" stroke="none"/><circle cx="137" cy="77" r="3" fill="#142b45" stroke="none"/>
+ <path d="M94 65 Q103 59 111 65 M129 65 Q139 59 147 65" fill="none" stroke="#51301e" stroke-width="4"/>
+ <path d="M115 84 Q119 91 125 84" fill="none" stroke="#a85e39" stroke-width="3"/>
+ <path d="M99 99 Q119 119 143 98 Q137 125 117 124 Q101 119 99 99Z" fill="#fff" stroke="#783c2b" stroke-width="2"/>
+ <path d="M104 106 Q120 112 138 104" fill="none" stroke="#8f3c2c" stroke-width="2"/>
+ <!-- helmet -->
+ <path d="M73 58 Q75 9 119 8 Q164 9 166 58 L157 65 L82 65Z" fill="url(#helmet)"/>
+ <path d="M64 57 Q119 45 175 57 Q182 61 173 69 Q118 80 65 68 Q56 64 64 57Z" fill="#ffcb24"/>
+ <path d="M87 23 Q119 5 151 24" fill="none" stroke="#fff2a0" stroke-width="5"/>
+ <path d="M102 43 L138 43 L135 58 L105 58Z" fill="#e63946" stroke="#7f1d1d" stroke-width="2"/>
+ <text x="120" y="54" font-family="Arial,sans-serif" font-size="10" font-weight="900" fill="#fff" text-anchor="middle" stroke="none">VM</text>
+ <!-- tool belt and pouch -->
+ <path d="M68 193 Q118 205 165 190 L170 207 Q119 223 64 210Z" fill="#bd8a36"/>
+ <path d="M76 203 L108 208 L105 245 L72 241Z" fill="#8b5b24"/>
+ <path d="M79 204 L86 183 L91 182 L90 209Z" fill="#d7dde5"/>
+ <path d="M94 205 L100 179 L106 180 L104 209Z" fill="#e7a51a"/>
+ <path d="M115 207 L120 184 L126 184 L125 209Z" fill="#e63946"/>
+ <path d="M138 203 L143 186 L149 187 L148 201Z" fill="#f8fafc"/>
+ <circle cx="120" cy="212" r="6" fill="#ffc928"/>
+</g>
+</svg>
