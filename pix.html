@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071a35">
+<title>Contribuição Pix | VM Soluções Elétricas</title>
+<style>
+:root{font-family:system-ui,Arial,sans-serif;color:#102b50;background:#e8eef5}
+*{box-sizing:border-box}body{margin:0;padding:18px;background:linear-gradient(145deg,#eaf1f8,#d4deea)}
+main{max-width:680px;margin:24px auto;display:grid;gap:16px}
+.card{background:#fffdf7;border:2px solid #12376b;border-radius:18px;padding:20px;box-shadow:0 5px 0 #0a2a54}
+h1,h2{margin:0 0 10px;color:#075eb1}p{line-height:1.55}.amount{font-size:36px;font-weight:900;color:#102b50}
+.key{padding:13px;border:2px dashed #7890ad;border-radius:10px;background:#f3f7fb;font-size:19px;font-weight:800;overflow-wrap:anywhere}
+button,a.button{display:inline-block;border:0;border-radius:10px;padding:12px 16px;background:#075eb1;color:white;font-weight:850;text-decoration:none;cursor:pointer;font-size:15px}
+button.secondary{background:#e9b900;color:#142d50}.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+#qrcode{display:grid;place-items:center;min-height:230px;padding:10px;background:white;border-radius:12px}
+#qrcode canvas,#qrcode img{max-width:100%;height:auto}
+.note{padding:12px;border-left:5px solid #e9b900;background:#fff5ce;border-radius:8px}
+.muted{color:#52657a;font-size:14px}.status{min-height:22px;color:#17633b;font-weight:700}
+</style>
+</head>
+<body>
+<main>
+<section class="card">
+<h1>⚡ VM Soluções Elétricas</h1>
+<p>Contribuição simbólica para ajudar no desenvolvimento de novos recursos do aplicativo Eletricista SENAI.</p>
+<div class="amount">R$ 3,00</div>
+<p class="muted">Valor por nível, a partir do nível 3. Os níveis 1 e 2 permanecem gratuitos.</p>
+</section>
+<section class="card">
+<h2>1. Confira o destinatário</h2>
+<p><strong>Titular:</strong> VILSON SOUZA MEIRA<br><strong>Banco:</strong> Banco Bradesco S.A.</p>
+<p><strong>Chave Pix (CPF):</strong></p>
+<div class="key" id="pixKey">30925625850</div>
+<div class="row"><button type="button" id="copyKey">Copiar chave Pix</button></div>
+</section>
+<section class="card">
+<h2>2. Pague pelo QR Code Pix</h2>
+<div id="qrcode" aria-label="QR Code Pix de três reais"></div>
+<p class="muted">Ao abrir o aplicativo do seu banco, confira se o destinatário exibido é VILSON SOUZA MEIRA e se o valor é R$ 3,00 antes de confirmar.</p>
+<div class="row"><button type="button" class="secondary" id="copyPayload">Copiar Pix copia e cola</button></div>
+<p class="status" id="status" role="status"></p>
+</section>
+<section class="card">
+<h2>3. Liberação do nível</h2>
+<div class="note"><strong>Atenção:</strong> esta tela prepara o pagamento Pix, mas ainda não recebe confirmação automática do banco. O serial individual só poderá ser gerado depois que o recebimento for conferido pelo administrador.</div>
+<p class="muted">Não feche esta tela antes de conferir os dados no aplicativo do banco. Um comprovante ou clique em “paguei” não substitui a confirmação do crédito na conta.</p>
+<a class="button" href="./index.html">Voltar ao aplicativo</a>
+</section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+<script>
+(()=>{"use strict";
+const key="30925625850",name="VILSON SOUZA MEIRA",city="SAO PAULO",amount="3.00";
+function tlv(id,value){const s=String(value);return id+String(s.length).padStart(2,"0")+s}
+function crc16(str){let crc=0xFFFF;for(let i=0;i<str.length;i++){crc^=str.charCodeAt(i)<<8;for(let j=0;j<8;j++)crc=(crc&0x8000)?((crc<<1)^0x1021):(crc<<1);crc&=0xFFFF}return crc.toString(16).toUpperCase().padStart(4,"0")}
+const merchant=tlv("00","br.gov.bcb.pix")+tlv("01",key);
+const additional=tlv("05","***");
+let payload=tlv("00","01")+tlv("26",merchant)+tlv("52","0000")+tlv("53","986")+tlv("54",amount)+tlv("58","BR")+tlv("59",name)+tlv("60",city)+tlv("62",additional)+"6304";
+payload+=crc16(payload);
+const status=document.getElementById("status");
+if(window.QRCode){QRCode.toCanvas(payload,{width:230,margin:2,errorCorrectionLevel:"M"},(err,canvas)=>{if(err){status.textContent="Não foi possível montar o QR Code. Use a chave Pix acima.";return}document.getElementById("qrcode").appendChild(canvas)})}
+else status.textContent="QR Code indisponível no momento. Use a chave Pix acima.";
+async function copy(value,message){try{await navigator.clipboard.writeText(value);status.textContent=message}catch{status.textContent="Não foi possível copiar automaticamente. Selecione e copie a chave Pix acima."}}
+document.getElementById("copyKey").addEventListener("click",()=>copy(key,"Chave Pix copiada."));
+document.getElementById("copyPayload").addEventListener("click",()=>copy(payload,"Pix copia e cola copiado."));
+})();
+</script>
+</body></html>
