@@ -11,7 +11,7 @@
     {file:'alexa.html', title:'Alexa', desc:'Aqui você encontra a área de integração com a Alexa e os recursos de assistência por voz.'}
   ];
   const path = location.pathname.split('/').pop() || 'index.html';
-  const active = Math.max(0, routes.findIndex(r => r.file === path));
+  const active = path === 'index.html' ? 0 : path === 'aluno.html' ? 1 : path === 'quadro-distribuicao.html' ? 3 : path === 'alexa.html' ? 4 : 2;
   const savedVoice = localStorage.getItem('vmGuideVoice') === 'on';
   const guide = document.createElement('div');
   guide.className = 'vm-guide';
