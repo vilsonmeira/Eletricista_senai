@@ -19,6 +19,8 @@
   nav.before(guide);
   const bubble = guide.querySelector('.vm-guide-bubble');
   const walker = guide.querySelector('.vm-guide-walker');
+  const mascotImage = walker.querySelector('img');
+  mascotImage.addEventListener('error', () => { walker.textContent = '👷‍♂️'; walker.setAttribute('aria-label','Eletricista virtual'); });
   const toggle = guide.querySelector('.vm-guide-toggle');
   const voice = guide.querySelector('.vm-guide-voice');
   const say = (message) => {
