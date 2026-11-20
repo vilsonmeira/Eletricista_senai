@@ -44,3 +44,10 @@ a{color:#214e73}
 @media(min-width:760px){.vm-guide{bottom:91px}.vm-guide-bubble{font-size:13px}}
 @media(prefers-reduced-motion:reduce){.vm-guide-walker,.vm-bottom-nav a{transition:none!important}.vm-guide-walker.walking{animation:none!important}}
 @media print{.vm-guide{display:none!important}}
+
+/* Mascote ilustrado: uniforme azul, capacete amarelo e caminhada */
+.vm-guide-walker{width:58px;height:72px;font-size:0;display:flex;align-items:flex-end;justify-content:center;transform:translateX(-50%);transform-origin:50% 100%}
+.vm-guide-walker img{display:block;width:58px;height:72px;object-fit:contain;filter:drop-shadow(0 4px 3px #071a3555)}
+.vm-guide-walker.walking{animation:vmMascotWalk .22s ease-in-out 4}
+@keyframes vmMascotWalk{0%,100%{transform:translateX(-50%) translateY(0) rotate(0)}25%{transform:translateX(-50%) translateY(-4px) rotate(-5deg)}75%{transform:translateX(-50%) translateY(-2px) rotate(5deg)}}
+@media(max-width:600px){.vm-guide-walker,.vm-guide-walker img{width:50px;height:64px}.vm-guide{height:76px;bottom:82px}}
