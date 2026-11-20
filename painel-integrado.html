@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#075eb1"><title>Painel integrado | Eletricista SENAI</title>
+<meta name="theme-color" content="#142b45"><title>Painel integrado | Eletricista SENAI</title>
 <style>
 :root{--ink:#102b50;--blue:#075eb1;--gold:#ffc928;--paper:#fff9e8;--muted:#425875}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#fff2bf,#d7e2ee 65%,#bac9d8);font:15px/1.5 "Trebuchet MS",system-ui,sans-serif;color:var(--ink)}
@@ -22,7 +22,7 @@ button{border:2px solid var(--ink);border-radius:10px;padding:10px 14px;backgrou
 li{margin:5px 0}.footer{text-align:center;padding:8px 15px 25px;color:var(--muted);font-weight:700}
 @media(max-width:560px){main{padding:11px}.panel{padding:13px}.hero{grid-template-columns:1fr}.mascot{display:none}.metrics{grid-template-columns:1fr 1fr 1fr}.metric strong{font-size:20px}}
 </style>
-</head>
+<link rel="stylesheet" href="./vm-theme.css"></head>
 <body>
 <header><div style="font-size:34px">⚡🏠</div><h1>ELETRICISTA SENAI</h1><p>Painel integrado de aprendizagem • Pratique com segurança</p></header>
 <main>
@@ -57,4 +57,4 @@ const historyEl=document.getElementById("historyList");
 if(historyEl)historyEl.innerHTML=history.length?history.slice(0,8).map(x=>'<article class="module"><span class="ico">🏅</span><span><b>'+String(x.title).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))+'</b><small>'+(x.detail||"Atividade registrada")+' • '+new Date(x.at).toLocaleString("pt-BR")+'</small></span></article>').join(""):"Nenhuma atividade registrada ainda. Conclua uma missão para iniciar seu histórico.";
 </script>
 <script src="./dicionario.js"></script><script src="./assistente.js"></script>
-</body></html>
+<nav class="vm-bottom-nav" aria-label="Navegação principal"><a href="./index.html" aria-current="page"><span aria-hidden="true">⌂</span>Início</a><a href="./aluno.html"><span aria-hidden="true">▤</span>Aprender</a><a href="./painel-integrado.html"><span aria-hidden="true">▦</span>Módulos</a><a href="./quadro-distribuicao.html"><span aria-hidden="true">▥</span>Quadro</a><a href="./alexa.html"><span aria-hidden="true">◉</span>Alexa</a></nav></body></html>
