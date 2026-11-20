@@ -1,0 +1,26 @@
+/* VM Soluções Elétricas — Industrial Premium Light */
+:root{color-scheme:light;--vm-navy:#142b45;--vm-blue:#214e73;--vm-yellow:#f2b705;--vm-bg:#f3f5f7;--vm-panel:#fff;--vm-line:#d7dee6;--vm-muted:#64748b}
+*{box-sizing:border-box}
+html{background:var(--vm-bg);scroll-padding-bottom:90px}
+body{background:var(--vm-bg)!important;color:#172b40!important;padding-bottom:92px!important;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif!important}
+header{background:linear-gradient(115deg,#142b45,#214e73)!important;color:#fff!important;border-bottom:5px solid var(--vm-yellow)!important;box-shadow:0 5px 18px #142b4518!important}
+header p{color:#e7eef5!important}
+header:after{content:"VM SOLUÇÕES ELÉTRICAS";display:block;margin:9px auto 0;color:#ffd45a;font-size:11px;font-weight:900;letter-spacing:2px}
+h1,h2,h3{color:inherit}
+main{padding-bottom:20px!important}
+.card,.panel,.item,.entry,.metric,.module,.status,.stat,.planwrap,.plan,.railbox{background:#fff!important;color:#172b40!important;border:1px solid var(--vm-line)!important;border-radius:15px!important;box-shadow:0 5px 18px #142b450d!important}
+h2,.module b,.entry h3{color:var(--vm-navy)!important}
+p,.muted,small,label{color:#536579}
+input,select,textarea{background:#fff!important;color:#172b40!important;border:1px solid #cbd5e1!important;border-radius:9px!important}
+button,.btn,a.btn{background:#214e73!important;color:#fff!important;border:1px solid #214e73!important;border-radius:10px!important;box-shadow:none!important}
+button.primary,.btn.primary,.levels button.active{background:#eab308!important;color:#172b40!important;border-color:#d6a000!important;font-weight:800}
+button.secondary{background:#fff!important;color:#214e73!important;border-color:#b8c5d2!important}
+a{color:#214e73}
+.progress,.bar{background:#e2e8f0!important}.progress span,.bar span{background:#eab308!important}
+.board-wrap,.planwrap{background:#eef2f6!important}
+.vm-bottom-nav{position:fixed;z-index:9999;left:50%;bottom:max(10px,env(safe-area-inset-bottom));transform:translateX(-50%);width:min(680px,calc(100% - 20px));display:grid;grid-template-columns:repeat(5,1fr);gap:4px;padding:8px;background:#142b45;border:1px solid #34516d;border-radius:18px;box-shadow:0 10px 35px #142b4540}
+.vm-bottom-nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:0;padding:5px 2px;color:#e8eef5!important;text-decoration:none;font-size:10px;font-weight:700;border-radius:10px}
+.vm-bottom-nav a span{font-size:19px;line-height:1.2}.vm-bottom-nav a[aria-current=page]{background:#f2b705;color:#142b45!important}
+@media(min-width:760px){.vm-bottom-nav{bottom:18px}.vm-bottom-nav a{font-size:11px}.vm-bottom-nav a span{font-size:20px}}
+@media(prefers-reduced-motion:no-preference){.vm-bottom-nav a{transition:background .15s ease,transform .15s ease}.vm-bottom-nav a:active{transform:scale(.96)}}
+@media print{.vm-bottom-nav,header:after{display:none!important}body{padding-bottom:0!important;background:#fff!important}}
