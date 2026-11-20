@@ -5,13 +5,13 @@
   const items = nav ? [...nav.querySelectorAll('a')] : [];
   const routes = [
     {file:'index.html', title:'Início', desc:'Aqui começa sua jornada. Você encontra a bancada de aprendizagem, desafios e seu progresso.'},
-    {file:'aluno.html', title:'Aprender', desc:'Nesta aba você estuda os conteúdos, acompanha as etapas e desenvolve suas habilidades de eletricista.'},
+    {file:'dicionario-eletricista.html', title:'Dicionário', desc:'Consulte componentes, ferramentas, conceitos e termos técnicos da profissão.'},
     {file:'painel-integrado.html', title:'Módulos', desc:'Aqui ficam reunidas as ferramentas do aplicativo: laboratório, projetos, clientes e outros recursos.'},
     {file:'quadro-distribuicao.html', title:'Quadro', desc:'Neste módulo você conhece os componentes do quadro de distribuição e pratica uma montagem didática.'},
     {file:'alexa.html', title:'Alexa', desc:'Aqui você encontra a área de integração com a Alexa e os recursos de assistência por voz.'}
   ];
   const path = location.pathname.split('/').pop() || 'index.html';
-  const active = path === 'index.html' ? 0 : path === 'aluno.html' ? 1 : path === 'quadro-distribuicao.html' ? 3 : path === 'alexa.html' ? 4 : 2;
+  const active = path === 'index.html' ? 0 : path === 'dicionario-eletricista.html' ? 1 : path === 'quadro-distribuicao.html' ? 3 : path === 'alexa.html' ? 4 : 2;
   const savedVoice = localStorage.getItem('vmGuideVoice') === 'on';
   const guide = document.createElement('div');
   guide.className = 'vm-guide';
