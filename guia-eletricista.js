@@ -1,8 +1,8 @@
 /* Guia animado VM Soluções Elétricas — navegação por voz */
 (() => {
   const nav = document.querySelector('.vm-bottom-nav');
-  if (!nav || document.querySelector('.vm-guide')) return;
-  const items = [...nav.querySelectorAll('a')];
+  if (document.querySelector('.vm-guide')) return;
+  const items = nav ? [...nav.querySelectorAll('a')] : [];
   const routes = [
     {file:'index.html', title:'Início', desc:'Aqui começa sua jornada. Você encontra a bancada de aprendizagem, desafios e seu progresso.'},
     {file:'aluno.html', title:'Aprender', desc:'Nesta aba você estuda os conteúdos, acompanha as etapas e desenvolve suas habilidades de eletricista.'},
@@ -16,7 +16,7 @@
   const guide = document.createElement('div');
   guide.className = 'vm-guide';
   guide.innerHTML = '<div class="vm-guide-bubble" role="status" aria-live="polite"></div><div class="vm-guide-walker" aria-label="Eletricista virtual caminhando"><img src="./eletricista-mascote.svg" alt="" /></div><button class="vm-guide-toggle" type="button" aria-expanded="false">☰ Abas</button><button class="vm-guide-voice" type="button" aria-pressed="'+savedVoice+'">🔊 Voz '+(savedVoice?'ligada':'desligada')+'</button>';
-  nav.before(guide);
+  (nav || document.body.firstElementChild)?.before(guide) || document.body.appendChild(guide);
   const bubble = guide.querySelector('.vm-guide-bubble');
   const walker = guide.querySelector('.vm-guide-walker');
   const mascotImage = walker.querySelector('img');
@@ -38,6 +38,7 @@
   const placeWalker = (index) => {
     const link = items[index];
     if (!link) return;
+    if (!nav) return;
     const navRect = nav.getBoundingClientRect();
     const linkRect = link.getBoundingClientRect();
     walker.style.left = (linkRect.left - navRect.left + linkRect.width / 2) + 'px';
@@ -59,7 +60,7 @@
     });
   });
   toggle.addEventListener('click', () => {
-    const expanded = nav.classList.toggle('vm-nav-expanded');
+    const expanded = nav ? nav.classList.toggle('vm-nav-expanded') : false;
     toggle.setAttribute('aria-expanded', String(expanded));
     toggle.textContent = expanded ? '✕ Fechar abas' : '☰ Abas';
     say(expanded ? 'Escolha uma aba. Eu vou caminhar até ela e explicar para que serve.' : 'Menu de abas recolhido. Toque em Abas quando quiser navegar.');
@@ -76,7 +77,7 @@
       say('Áudio desligado. As explicações continuam aparecendo em texto.');
     }
   });
-  nav.classList.remove('vm-nav-expanded');
+  if (nav) nav.classList.remove('vm-nav-expanded');
   placeWalker(active);
   const current = routes[active] || routes[0];
   say('Você está em '+current.title+'. '+current.desc+' Ative a voz para ouvir minhas orientações.');
