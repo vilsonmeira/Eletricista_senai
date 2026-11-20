@@ -15,7 +15,7 @@
   const savedVoice = localStorage.getItem('vmGuideVoice') === 'on';
   const guide = document.createElement('div');
   guide.className = 'vm-guide';
-  guide.innerHTML = '<div class="vm-guide-bubble" role="status" aria-live="polite"></div><div class="vm-guide-walker" aria-label="Eletricista virtual caminhando">👷‍♂️</div><button class="vm-guide-toggle" type="button" aria-expanded="false">☰ Abas</button><button class="vm-guide-voice" type="button" aria-pressed="'+savedVoice+'">🔊 Voz '+(savedVoice?'ligada':'desligada')+'</button>';
+  guide.innerHTML = '<div class="vm-guide-bubble" role="status" aria-live="polite"></div><div class="vm-guide-walker" aria-label="Eletricista virtual caminhando"><img src="./eletricista-mascote.svg" alt="" /></div><button class="vm-guide-toggle" type="button" aria-expanded="false">☰ Abas</button><button class="vm-guide-voice" type="button" aria-pressed="'+savedVoice+'">🔊 Voz '+(savedVoice?'ligada':'desligada')+'</button>';
   nav.before(guide);
   const bubble = guide.querySelector('.vm-guide-bubble');
   const walker = guide.querySelector('.vm-guide-walker');
