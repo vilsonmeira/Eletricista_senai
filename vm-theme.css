@@ -24,3 +24,23 @@ a{color:#214e73}
 @media(min-width:760px){.vm-bottom-nav{bottom:18px}.vm-bottom-nav a{font-size:11px}.vm-bottom-nav a span{font-size:20px}}
 @media(prefers-reduced-motion:no-preference){.vm-bottom-nav a{transition:background .15s ease,transform .15s ease}.vm-bottom-nav a:active{transform:scale(.96)}}
 @media print{.vm-bottom-nav,header:after{display:none!important}body{padding-bottom:0!important;background:#fff!important}}
+
+
+/* Guia animado do eletricista — navegação mobile com personagem e voz */
+.vm-guide{position:fixed;z-index:10001;left:50%;bottom:82px;transform:translateX(-50%);width:min(680px,calc(100% - 22px));height:82px;pointer-events:none}
+.vm-guide-bubble{position:absolute;left:50%;bottom:49px;transform:translateX(-50%) translateY(7px);width:max-content;max-width:min(92vw,470px);padding:9px 13px;background:#fff;border:2px solid #142b45;border-radius:14px;color:#142b45;font-size:12px;font-weight:750;line-height:1.35;box-shadow:0 4px 12px #142b4528;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none}
+.vm-guide-bubble.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.vm-guide-walker{position:absolute;bottom:0;left:50%;transform:translateX(-50%);font-size:34px;line-height:1;filter:drop-shadow(0 3px 2px #142b4540);transition:left .65s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.vm-guide-walker.walking{animation:vmWalk .24s ease-in-out 3}
+@keyframes vmWalk{0%,100%{transform:translateX(-50%) translateY(0) rotate(0)}25%{transform:translateX(-50%) translateY(-5px) rotate(-7deg)}75%{transform:translateX(-50%) translateY(-3px) rotate(7deg)}}
+.vm-guide-toggle,.vm-guide-voice{position:absolute;top:0;pointer-events:auto;padding:6px 10px!important;border-radius:999px!important;font-size:11px!important;font-weight:850!important;background:#142b45!important;color:#fff!important;border:1px solid #f2b705!important;box-shadow:0 3px 8px #142b4530!important}
+.vm-guide-toggle{left:0}.vm-guide-voice{right:0}
+.vm-bottom-nav{transition:padding .2s,opacity .2s}
+.vm-bottom-nav:not(.vm-nav-expanded) a:not([aria-current=page]){opacity:0;visibility:hidden;pointer-events:none;transform:scale(.75);width:0;padding-left:0;padding-right:0;overflow:hidden}
+.vm-bottom-nav:not(.vm-nav-expanded){grid-template-columns:1fr}
+.vm-bottom-nav:not(.vm-nav-expanded) a[aria-current=page]{justify-self:center;min-width:92px}
+.vm-bottom-nav.vm-nav-expanded{grid-template-columns:repeat(5,minmax(0,1fr))}
+.vm-bottom-nav.vm-nav-expanded a{opacity:1;visibility:visible;pointer-events:auto;width:auto}
+@media(min-width:760px){.vm-guide{bottom:91px}.vm-guide-bubble{font-size:13px}}
+@media(prefers-reduced-motion:reduce){.vm-guide-walker,.vm-bottom-nav a{transition:none!important}.vm-guide-walker.walking{animation:none!important}}
+@media print{.vm-guide{display:none!important}}
