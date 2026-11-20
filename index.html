@@ -165,12 +165,38 @@ button:active,.levels button:active{transform:translateY(3px);box-shadow:0 1px 0
 .brand-header .install-btn{display:none;align-self:center;background:linear-gradient(#ffe36a,#ffbf00)!important;color:#102b50!important}
 @media(max-width:600px){.brand-header{flex-direction:column;gap:8px;text-align:center;padding:17px 12px 20px}.brand-logo{width:112px}.brand-kicker{font-size:10px}.brand-header h1{font-size:clamp(23px,7vw,31px)}.brand-header p{font-size:13px}.brand-slogan{font-size:13px}.brand-header .install-btn{margin-top:7px}}
 
+
+.component-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:11px;margin-top:14px}
+.component-item{background:linear-gradient(145deg,#fff,#e8f1fb);border:2px solid #174477;border-radius:13px;padding:12px;box-shadow:0 3px 0 #0a2a54;min-width:0}
+.component-icon{font-size:30px;margin-bottom:5px}
+.component-item strong{display:block;color:#075eb1;font-size:14px;line-height:1.25}
+.component-item p{margin:6px 0 0;color:#405875;font-size:12px;line-height:1.4}
+.component-note{margin:14px 0 0;padding:11px;border-left:5px solid #e6a900;background:#fff5d5;border-radius:8px;color:#4b422d;font-size:12px}
+@media(max-width:420px){.component-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.component-item{padding:10px}.component-icon{font-size:26px}}
+
 </style><link rel="stylesheet" href="./vm-theme.css"></head>
 <body>
 <header class="brand-header"><img class="brand-logo" src="./icon.svg" alt="VM Soluções Elétricas"><div class="brand-copy"><div class="brand-kicker">VILSON MEIRA APRESENTA</div><h1>VM SOLUÇÕES ELÉTRICAS</h1><p>Aprendizado • Projetos • Instalações • Automação</p><div class="brand-slogan">Energia, segurança e confiança!</div></div><button id="installApp" class="install-btn" onclick="installEletricista()">＋ Instalar no celular</button></header>
 <main>
 <section class="comic-mascot"><div class="mascot-avatar" aria-hidden="true">👷‍♂️</div><div class="speech">Fala, eletricista! Eu sou seu parceiro de bancada. Vamos aprender ligação por ligação, ganhar pontos e dominar cada fase com segurança! ⚡</div></section>
-<section class="card"><div class="top"><div><h2>Painel de aprendizagem</h2><span class="muted">Conecte os terminais no quadro virtual e confira seu circuito.</span></div><div class="pill">⭐ Pontos: <strong id="score">0</strong></div></div><div class="progress"><span id="progress"></span></div><p class="muted" id="progressText">0 de 5 desafios concluídos</p><div class="levels" id="levels"></div><p class="muted" id="levelProgression">Trilha sequencial: conclua o desafio atual para liberar o próximo.</p></section>
+<section class="card"><div class="top"><div><h2>Painel de aprendizagem</h2><span class="muted">Conecte os terminais no quadro virtual e confira seu circuito.</span></div><div class="pill">⭐ Pontos: <strong id="score">0</strong></div></div><div class="progress"><span id="progress"></span></div><p class="muted" id="progressText">0 de 5 desafios concluídos</p><div class="levels" id="levels"></div><p class="muted" id="levelProgression">Trilha sequencial: conclua o desafio atual para liberar o próximo.</p>
+<section class="card" id="componentes-basicos">
+ <div class="top"><div><h2>🧰 Componentes básicos da instalação</h2><span class="muted">Conheça as peças que você vai aprender a instalar e conectar nos próximos desafios.</span></div><span class="pill">Kit residencial</span></div>
+ <div class="component-grid">
+  <article class="component-item"><div class="component-icon">🗄️</div><strong>Quadro de distribuição</strong><p>Recebe a alimentação e organiza os circuitos da residência.</p></article>
+  <article class="component-item"><div class="component-icon">⏻</div><strong>Disjuntores</strong><p>Protegem os circuitos contra sobrecorrentes e curtos-circuitos.</p></article>
+  <article class="component-item"><div class="component-icon">🛡️</div><strong>DR e DPS</strong><p>Proteção diferencial residual e proteção contra surtos, quando previstas no projeto.</p></article>
+  <article class="component-item"><div class="component-icon">🔩</div><strong>Barramentos</strong><p>Distribuem fase, neutro e condutor de proteção no quadro.</p></article>
+  <article class="component-item"><div class="component-icon">〰️</div><strong>Eletrodutos e caixas</strong><p>Conduzem e protegem os fios; caixas abrigam emendas e dispositivos.</p></article>
+  <article class="component-item"><div class="component-icon">🧵</div><strong>Fios e cabos</strong><p>Fase, neutro, proteção (terra/PE) e retorno, identificados conforme a função.</p></article>
+  <article class="component-item"><div class="component-icon">🎚️</div><strong>Interruptores</strong><p>Comandam lâmpadas e outros pontos de iluminação.</p></article>
+  <article class="component-item"><div class="component-icon">🔌</div><strong>Tomadas</strong><p>Permitem conectar aparelhos aos circuitos de tomadas.</p></article>
+  <article class="component-item"><div class="component-icon">💡</div><strong>Lâmpadas e luminárias</strong><p>Pontos de luz ligados aos circuitos de iluminação.</p></article>
+  <article class="component-item"><div class="component-icon">🌎</div><strong>Aterramento</strong><p>Sistema de proteção ligado ao condutor PE conforme o projeto.</p></article>
+ </div>
+ <p class="component-note">A lista é didática: a quantidade e os dispositivos necessários variam conforme a instalação, as cargas, o projeto e as normas aplicáveis. A montagem real deve ser feita por profissional qualificado, com o circuito desenergizado e procedimentos de segurança.</p>
+</section>
+</section>
 <section class="card"><div class="top"><div><h2 id="title"></h2><span class="muted" id="description"></span></div><span class="pill" id="difficulty"></span></div>
 <div class="item" id="levelStandards" aria-live="polite"></div><div class="legend"><span><i class="dot"></i> Terminal disponível</span><span>Escolha uma cor e toque em dois terminais para conectar o fio.</span></div>
 <div class="wire-palette" id="wirePalette" aria-label="Cores dos condutores">
