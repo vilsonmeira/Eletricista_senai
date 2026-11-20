@@ -41,7 +41,7 @@
     if (!nav) return;
     const navRect = nav.getBoundingClientRect();
     const linkRect = link.getBoundingClientRect();
-    walker.style.left = (linkRect.left - navRect.left + linkRect.width / 2) + 'px';
+    walker.style.left = (linkRect.left + linkRect.width / 2) + 'px';
     walker.classList.remove('walking');
     void walker.offsetWidth;
     walker.classList.add('walking');
