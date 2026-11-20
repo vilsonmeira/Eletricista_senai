@@ -45,6 +45,11 @@
     walker.classList.remove('walking');
     void walker.offsetWidth;
     walker.classList.add('walking');
+    mascotImage.classList.remove('stepping');
+    void mascotImage.offsetWidth;
+    mascotImage.classList.add('stepping');
+    window.clearTimeout(walker._walkTimer);
+    walker._walkTimer = window.setTimeout(() => { walker.classList.remove('walking'); mascotImage.classList.remove('stepping'); }, 1250);
   };
   routes.forEach((route, i) => {
     const link = items[i];
@@ -56,7 +61,7 @@
       placeWalker(i);
       say('Vamos para '+route.title+'. '+route.desc);
       const href = link.getAttribute('href');
-      if (href && href !== '#') window.setTimeout(() => { location.href = href; }, localStorage.getItem('vmGuideVoice') === 'on' ? 1550 : 450);
+      if (href && href !== '#') window.setTimeout(() => { location.href = href; }, localStorage.getItem('vmGuideVoice') === 'on' ? 2200 : 1450);
     });
   });
   toggle.addEventListener('click', () => {
