@@ -1,1 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="110" fill="#174ea6"/><path d="M280 40 110 280h120l-18 192 190-260H278z" fill="#ffd43b" stroke="#172544" stroke-width="18" stroke-linejoin="round"/><circle cx="365" cy="130" r="52" fill="#fff8df" stroke="#172544" stroke-width="14"/><path d="M345 130h40M365 110v40" stroke="#174ea6" stroke-width="14" stroke-linecap="round"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+<title id="title">VM Soluções Elétricas — Vilson Meira</title><desc id="desc">Monograma VM amarelo e prata com raio, telhado e plugue sobre fundo azul-marinho.</desc>
+<defs><linearGradient id="bg" x2="0" y2="1"><stop stop-color="#123e79"/><stop offset="1" stop-color="#06152b"/></linearGradient><linearGradient id="gold" x2="0" y2="1"><stop stop-color="#fff18a"/><stop offset=".48" stop-color="#ffc928"/><stop offset="1" stop-color="#e99a00"/></linearGradient><linearGradient id="silver" x2="0" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#aab8cb"/></linearGradient></defs>
+<rect x="10" y="10" width="492" height="492" rx="82" fill="url(#bg)" stroke="#ffc928" stroke-width="12"/>
+<path d="M78 172 256 64l178 108" fill="none" stroke="url(#silver)" stroke-width="19" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M222 123h68v49h-68z" fill="url(#gold)" stroke="#071a35" stroke-width="7"/>
+<path d="M74 205h112l-34 62h62l-56 104 10-75H96z" fill="url(#gold)" stroke="#071a35" stroke-width="9" stroke-linejoin="round"/>
+<path d="M172 384V210h55l47 79 48-79h54v174h-62V309l-40 61-40-61v75z" fill="url(#silver)" stroke="#071a35" stroke-width="8" stroke-linejoin="round"/>
+<path d="M373 129q85-33 87 36" fill="none" stroke="#ffc928" stroke-width="13" stroke-linecap="round"/>
+<rect x="421" y="151" width="48" height="42" rx="9" transform="rotate(18 445 172)" fill="url(#gold)" stroke="#071a35" stroke-width="7"/>
+<path d="M435 143v-19m18 25 7-18" stroke="#ffc928" stroke-width="10" stroke-linecap="round"/>
+<path d="M82 418h348" stroke="#ffc928" stroke-width="5" stroke-linecap="round"/>
+<text x="256" y="454" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="28" font-weight="900" letter-spacing="3">VM</text>
+</svg>
