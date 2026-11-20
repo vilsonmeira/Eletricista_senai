@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101c33"><title>Solicitar projeto | Eletricista SENAI</title><style>
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#142b45"><title>Solicitar projeto | Eletricista SENAI</title><style>
 :root{color-scheme:dark;--bg:#0b1220;--panel:#142139;--line:#2a3c5c;--blue:#60a5fa;--yellow:#facc15;--muted:#a8b6cc}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#1a3152,var(--bg) 58%);font:15px/1.5 system-ui,Arial;color:#f8fafc}
 header{padding:22px 16px;text-align:center;background:#0c1729;border-bottom:1px solid var(--line)}h1{margin:5px 0;font-size:clamp(24px,5vw,36px)}header p,.muted,small{color:var(--muted)}
@@ -11,7 +11,7 @@ button.primary,.btn.primary{background:#1d4ed8;border-color:#3b82f6}.actions{dis
 .item{padding:13px;border:1px solid var(--line);border-radius:12px;margin-top:10px;background:#0b1729}.item h3{margin:0 0 5px}.bar{height:9px;border-radius:9px;background:#26364f;overflow:hidden}.bar span{display:block;height:100%;background:#60a5fa}
 a{color:#93c5fd}@media(max-width:600px){main{padding:10px}.card{padding:13px}}
 @media print{body{background:#fff;color:#111}header{background:#fff;color:#111}.card,.item{background:#fff;color:#111;border:1px solid #aaa}.muted,small{color:#444}.no-print,button{display:none!important}}
-</style></head><body>
+</style><link rel="stylesheet" href="./vm-theme.css"></head><body>
 <header><div style="font-size:34px">🏠⚡</div><h1>CADASTRO DE CLIENTE E IMÓVEL</h1><p>Solicite seu projeto elétrico e acompanhe cada etapa pelo celular.</p></header>
 <main>
 <section class="card"><div class="row"><h2>Seus dados</h2><a href="./index.html">← Início</a></div><p class="muted">Preencha os dados para abrir sua solicitação. O WhatsApp será usado para contato sobre o projeto.</p>
@@ -40,4 +40,4 @@ const a=document.createElement("a");a.href=link;a.textContent="Abrir acompanhame
 const copy=document.createElement("button");copy.textContent="Copiar link";copy.style.marginLeft="8px";copy.onclick=()=>navigator.clipboard?.writeText(link);result.appendChild(copy);form.reset();
 }catch(err){result.className="status bad";result.textContent=err.message;}finally{btn.disabled=false;btn.textContent="Enviar solicitação";}});
 </script><script src="./dicionario.js"></script><script src="./assistente.js"></script>
-</body></html>
+<nav class="vm-bottom-nav" aria-label="Navegação principal"><a href="./index.html" aria-current="page"><span aria-hidden="true">⌂</span>Início</a><a href="./aluno.html"><span aria-hidden="true">▤</span>Aprender</a><a href="./painel-integrado.html"><span aria-hidden="true">▦</span>Módulos</a><a href="./quadro-distribuicao.html"><span aria-hidden="true">▥</span>Quadro</a><a href="./alexa.html"><span aria-hidden="true">◉</span>Alexa</a></nav></body></html>
