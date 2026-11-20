@@ -8,7 +8,82 @@
 <div class="meter"><div class="screen" id="reading">— — —</div><div class="dial">⏻</div><div class="leads"><span class="lead red">VΩ • Vermelha</span><span class="lead black">COM • Preta</span></div></div>
 <div class="actions"><button id="measure">Realizar medição simulada</button><button class="secondary" id="explain">Explicar a leitura</button></div><p class="status" id="result" aria-live="polite">Selecione a função e a condição, depois realize a medição.</p><p class="muted" id="explanation"></p></section>
 <section class="card"><h2>2. Caça-defeitos</h2><p class="muted">Analise os sintomas e selecione o defeito provável. O exercício não envolve tensão real.</p><div class="grid"><label>Desafio<select id="case"><option value="lamp">Lâmpada não acende</option><option value="outlet">Tomada sem funcionamento</option><option value="intermittent">Funcionamento intermitente</option></select></label><label>Hipótese<select id="hypothesis"><option value="">Escolha uma hipótese</option><option value="open">Condutor ou conexão interrompida</option><option value="lamp">Lâmpada/carga defeituosa</option><option value="supply">Ausência de alimentação</option><option value="loose">Conexão frouxa</option></select></label></div><div class="actions"><button id="diagnose">Conferir diagnóstico</button><button class="secondary" id="newCase">Limpar resposta</button></div><p class="status" id="diagnosis" aria-live="polite">Escolha uma hipótese para investigar.</p></section>
-<section class="card"><h2>3. Segurança do laboratório</h2><ul><li>As leituras são valores fictícios para ensinar interpretação.</li><li>Não conecte este simulador a equipamentos ou circuitos reais.</li><li>Em atividades reais, siga o procedimento de segurança, use instrumentos adequados e tenha supervisão de profissional habilitado.</li><li>Estude NR-10 e ABNT NBR 5410 com seu instrutor.</li></ul></section>
+
+<section class="card" id="bancada-montagem">
+<h2>3. Bancada interativa de montagem</h2>
+<p class="muted">Monte um circuito didático desenergizado. Escolha a cor do fio, toque em um terminal de origem e depois no terminal de destino. A lâmpada acende somente quando as três ligações e as cores do exercício estiverem corretas.</p>
+<style>
+#bancada-montagem .bench{background:linear-gradient(145deg,#20364c,#344e66);border:5px solid #142b45;border-radius:16px;padding:14px;color:#fff}
+#bancada-montagem .parts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0}
+#bancada-montagem .part{background:#f7f9fc;color:#102b50;border:2px solid #102b50;border-radius:12px;padding:10px 5px;text-align:center;font-weight:900;min-height:90px}
+#bancada-montagem .part .symbol{display:block;font-size:27px}
+#bancada-montagem .terminal{display:inline-block;margin-top:7px;border:2px solid #102b50;border-radius:50%;width:18px;height:18px;background:#d7ad52;vertical-align:middle}
+#bancada-montagem .terminal.selected{outline:4px solid #ffc928}
+#bancada-montagem .palette{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+#bancada-montagem .wirepick{padding:8px 10px;border:2px solid #fff;border-radius:9px;background:#fff;color:#102b50;font-weight:900}
+#bancada-montagem .wirepick[aria-pressed=true]{outline:3px solid #ffc928}
+#bancada-montagem .wirepick i{display:inline-block;width:13px;height:13px;border-radius:50%;margin-right:5px;vertical-align:middle}
+#bancada-montagem .wirelist{background:#fff;color:#102b50;border-radius:10px;padding:10px;min-height:44px}
+#bancada-montagem .bulb{font-size:54px;text-align:center;filter:grayscale(1);opacity:.45;transition:.2s}
+#bancada-montagem .bulb.on{filter:none;opacity:1;text-shadow:0 0 24px #ffd84d}
+#bancada-montagem .bench button{margin:4px}
+@media(max-width:520px){#bancada-montagem .parts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+<div class="bench">
+<div class="palette" role="group" aria-label="Escolha a cor do condutor">
+<button class="wirepick" data-wire="phase" aria-pressed="true"><i style="background:#8b4513"></i>Fase (marrom)</button>
+<button class="wirepick" data-wire="return" aria-pressed="false"><i style="background:#df3b36"></i>Retorno (vermelho)</button>
+<button class="wirepick" data-wire="neutral" aria-pressed="false"><i style="background:#1687e8"></i>Neutro (azul)</button>
+</div>
+<div class="parts">
+<div class="part"><span class="symbol">🔌</span>Alimentação<br><small>Fase</small><button class="terminal" data-terminal="F" aria-label="Terminal fase"></button></div>
+<div class="part"><span class="symbol">🎚️</span>Interruptor<br><small>Entrada / saída</small><button class="terminal" data-terminal="S1" aria-label="Entrada interruptor"></button><button class="terminal" data-terminal="S2" aria-label="Saída interruptor"></button></div>
+<div class="part"><span class="symbol">💡</span>Lâmpada<br><small>Retorno / neutro</small><button class="terminal" data-terminal="L1" aria-label="Terminal retorno lâmpada"></button><button class="terminal" data-terminal="L2" aria-label="Terminal neutro lâmpada"></button></div>
+<div class="part"><span class="symbol">〰️</span>Neutro<br><small>Alimentação</small><button class="terminal" data-terminal="N" aria-label="Terminal neutro"></button></div>
+</div>
+<div class="bulb" id="benchBulb" aria-live="polite">💡</div>
+<div class="wirelist" id="benchWires" aria-live="polite">Nenhum fio conectado.</div>
+<p class="status" id="benchStatus" aria-live="polite">Selecione uma cor e toque em dois terminais para criar a primeira ligação.</p>
+<div class="actions">
+<button id="benchCheck">Testar bancada</button>
+<button class="secondary" id="benchUndo">Desfazer fio</button>
+<button class="secondary" id="benchReset">Reiniciar montagem</button>
+</div>
+</div>
+<p class="muted">Neste desafio, a montagem esperada é Fase → entrada do interruptor; saída do interruptor → retorno da lâmpada; neutro da alimentação → terminal neutro da lâmpada. É uma representação didática simplificada, não um esquema executivo de instalação.</p>
+</section>
+<section class="card"><h2>4. Segurança do laboratório</h2><ul><li>As leituras são valores fictícios para ensinar interpretação.</li><li>Não conecte este simulador a equipamentos ou circuitos reais.</li><li>Em atividades reais, siga o procedimento de segurança, use instrumentos adequados e tenha supervisão de profissional habilitado.</li><li>Estude NR-10 e ABNT NBR 5410 com seu instrutor.</li></ul></section>
+
+<script>
+(()=>{
+const root=document.getElementById("bancada-montagem");if(!root)return;
+const names={F:"Fase da alimentação",S1:"Entrada do interruptor",S2:"Saída do interruptor",L1:"Terminal de retorno da lâmpada",L2:"Terminal neutro da lâmpada",N:"Neutro da alimentação"};
+const expected=[{a:"F",b:"S1",color:"phase"},{a:"S2",b:"L1",color:"return"},{a:"N",b:"L2",color:"neutral"}];
+let wires=[],first=null,color="phase";
+const $=id=>document.getElementById(id),pair=(a,b)=>[a,b].sort().join("|");
+function render(){
+root.querySelectorAll("[data-terminal]").forEach(b=>b.classList.toggle("selected",b.dataset.terminal===first));
+$("benchWires").textContent=wires.length?wires.map(w=>names[w.a]+" → "+names[w.b]+" ("+({phase:"fase marrom",return:"retorno vermelho",neutral:"neutro azul"}[w.color])+")").join(" • "):"Nenhum fio conectado.";
+}
+root.querySelectorAll("[data-wire]").forEach(b=>b.addEventListener("click",()=>{color=b.dataset.wire;root.querySelectorAll("[data-wire]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));}));
+root.querySelectorAll("[data-terminal]").forEach(b=>b.addEventListener("click",()=>{
+const id=b.dataset.terminal;
+if(!first){first=id;$("benchStatus").textContent="Origem selecionada: "+names[id]+". Agora escolha o terminal de destino.";render();return;}
+if(first===id){first=null;$("benchStatus").textContent="Seleção cancelada.";render();return;}
+if(wires.some(w=>pair(w.a,w.b)===pair(first,id))){$("benchStatus").textContent="Esse fio já foi conectado.";first=null;render();return;}
+wires.push({a:first,b:id,color});first=null;$("benchStatus").textContent="Fio adicionado. Continue a montagem."; $("benchBulb").classList.remove("on");render();
+}));
+$("benchUndo").addEventListener("click",()=>{wires.pop();first=null;$("benchBulb").classList.remove("on");$("benchStatus").textContent="Última ligação removida.";render();});
+$("benchReset").addEventListener("click",()=>{wires=[];first=null;$("benchBulb").classList.remove("on");$("benchStatus").textContent="Bancada reiniciada. Escolha uma cor e conecte os terminais.";render();});
+$("benchCheck").addEventListener("click",()=>{
+const valid=wires.length===expected.length&&expected.every(e=>wires.some(w=>pair(w.a,w.b)===pair(e.a,e.b)&&w.color===e.color));
+if(valid){$("benchBulb").classList.add("on");$("benchStatus").className="status good";$("benchStatus").textContent="Montagem correta! A lâmpada acendeu. Você conectou fase, retorno e neutro nos pontos previstos neste exercício.";
+if(!localStorage.getItem("eletricista-lab-bench-complete")){localStorage.setItem("eletricista-lab-bench-complete","1");window.EletricistaCore?.completeChallenge("laboratorio-bancada-basica","Bancada interativa: circuito de iluminação",100);}}
+else{$("benchBulb").classList.remove("on");$("benchStatus").className="status bad";$("benchStatus").textContent="Ainda não está correto. Confira os três pares de terminais e as cores: fase marrom, retorno vermelho e neutro azul. Desfaça ou reinicie e tente novamente."}
+});
+render();
+})();
+</script>
 </main><script src="./core.js"></script><script>
 const $=id=>document.getElementById(id);let last="";
 function measure(){const mode=$("mode").value,c=$("condition").value;let value="",msg="",detail="";
