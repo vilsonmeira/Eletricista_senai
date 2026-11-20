@@ -1,16 +1,21 @@
 {
   "id": "./",
-  "name": "Eletricista SENAI",
-  "short_name": "Eletricista",
-  "description": "Laboratório virtual de instalações elétricas em estilo gibi.",
+  "name": "VM Soluções Elétricas — Vilson Meira",
+  "short_name": "VM Elétrica",
+  "description": "Aprenda, projete e explore instalações elétricas com VM Soluções Elétricas.",
   "lang": "pt-BR",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#f2c94c",
-  "theme_color": "#174ea6",
+  "background_color": "#071a35",
+  "theme_color": "#071a35",
   "icons": [
-    {"src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
   ]
 }
