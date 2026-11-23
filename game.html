@@ -91,22 +91,21 @@ const arms=[];for(const x of [-.38,.38]){const a=box(player,x,1.03,0,.16,.62,.17
 const playerMarker=marker(-2,5.2,0x36a3ff);playerMarker.scale.set(.7,.7,.7);
 const interactables=[{name:'maleta',obj:toolbox,x:-6,z:-4},{name:'cabo',obj:cable,x:-5,z:1},{name:'tomada',obj:socket,x:6,z:-4.5},{name:'interruptor',obj:switchObj,x:4,z:3.9},{name:'luminaria',obj:lamp,x:1,z:-.2}];
 let stage=0,xp=0,hasTools=false,hasCable=false,installedSocket=false,installedSwitch=false,lampOn=false,done=false;
-const goals=[
- {text:'Pegue a maleta de ferramentas na bancada azul.',target:'maleta',action:'PEGAR MALETA'},
- {text:'Colete o cabo didático e leve-o até o ponto de tomada.',target:'cabo',action:'COLETAR CABO'},
- {text:'Aproxime-se do ponto e instale a tomada no painel.',target:'tomada',action:'INSTALAR TOMADA'},
- {text:'Vá até o interruptor e faça a instalação simulada.',target:'interruptor',action:'INSTALAR INTERRUPTOR'},
- {text:'Conclua a missão acionando o teste visual da luminária.',target:'luminaria',action:'TESTAR LUMINÁRIA'}
+const stages=[
+ [{text:'Pegue a maleta de ferramentas na bancada azul.',target:'maleta',action:'PEGAR MALETA'},{text:'Colete o cabo didático e leve-o até a área de trabalho.',target:'cabo',action:'COLETAR CABO'}],
+ [{text:'Aproxime-se do ponto e instale a tomada no painel.',target:'tomada',action:'INSTALAR TOMADA'},{text:'Vá até o interruptor e faça a instalação simulada.',target:'interruptor',action:'INSTALAR INTERRUPTOR'}],
+ [{text:'Conclua a missão acionando o teste visual da luminária.',target:'luminaria',action:'TESTAR LUMINÁRIA'}]
 ];
+const currentGoals=()=>stages[stage];
 let goalIndex=0;let nearest=null;let cameraAngle=Math.PI/4;let joy={x:0,y:0,active:false,id:null};let last=performance.now();
 const stageEl=document.getElementById('stage'),scoreEl=document.getElementById('score'),objective=document.getElementById('objective'),bar=document.getElementById('bar'),actionBtn=document.getElementById('interact'),hint=document.getElementById('hint');
-function updateHud(){stageEl.textContent='FASE '+(stage+1)+' / 3';scoreEl.textContent='⭐ '+xp+' XP';objective.textContent='Objetivo: '+(goals[goalIndex]?.text||'Missão concluída!');bar.style.width=(goalIndex/goals.length*100)+'%';actionBtn.textContent=goals[goalIndex]?.action||'FASE CONCLUÍDA';}
+function updateHud(){stageEl.textContent='FASE '+(stage+1)+' / 3';scoreEl.textContent='⭐ '+xp+' XP';objective.textContent='Objetivo: '+(currentGoals()[goalIndex]?.text||'Missão concluída!');bar.style.width=(goalIndex/currentGoals().length*100)+'%';actionBtn.textContent=currentGoals()[goalIndex]?.action||'FASE CONCLUÍDA';}
 function showMessage(title,text,button='Continuar',callback){document.getElementById('msgTitle').textContent=title;document.getElementById('msgText').textContent=text;const el=document.getElementById('message');el.style.display='block';const b=document.getElementById('msgButton');b.textContent=button;b.onclick=()=>{el.style.display='none';if(callback)callback()}}
-function completeGoal(){xp+=100;goalIndex++;updateHud();hint.textContent='Muito bem! +100 XP';if(goalIndex>=goals.length){bar.style.width='100%';done=true;showMessage('FASE CONCLUÍDA!','Você concluiu a primeira missão de reconhecimento e instalação simulada. Ganhou 500 XP. Próxima etapa: novos ambientes e desafios.','RECOMEÇAR',()=>{stage=(stage+1)%3;resetStage()});}else{showMessage('Objetivo concluído!','Você ganhou 100 XP. Continue seguindo as instruções da missão.');}}
-function resetStage(){goalIndex=0;hasTools=false;hasCable=false;installedSocket=false;installedSwitch=false;lampOn=false;done=false;player.position.set(-2,0,5.2);bulb.material=mat(0x5b6570);glow.intensity=0;updateHud();showMessage('FASE '+(stage+1),'Nova missão carregada. Explore o ambiente usando o joystick.');}
+function completeGoal(){xp+=100;goalIndex++;updateHud();hint.textContent='Muito bem! +100 XP';if(goalIndex>=currentGoals().length){bar.style.width='100%';done=true;if(stage<2){showMessage('FASE CONCLUÍDA!','Você concluiu esta etapa e ganhou 100 XP por objetivo. A próxima fase libera novos componentes e desafios.','PRÓXIMA FASE',()=>{stage++;resetStage()});}else{showMessage('JOGO CONCLUÍDO!','Parabéns! Você concluiu as três fases do protótipo e acumulou '+xp+' XP.','JOGAR NOVAMENTE',()=>{stage=0;xp=0;resetStage()});}}else{showMessage('Objetivo concluído!','Você ganhou 100 XP. Continue seguindo as instruções da missão.');}}
+function resetStage(){goalIndex=0;done=false;player.position.set(-2,0,5.2);if(stage===0){hasTools=false;hasCable=false;installedSocket=false;installedSwitch=false;lampOn=false;toolbox.visible=true;cable.visible=true;socket.visible=true;switchObj.visible=true;lamp.visible=true;bulb.material=mat(0x5b6570);glow.intensity=0;}else if(stage===1){hasTools=true;hasCable=true;installedSocket=false;installedSwitch=false;lampOn=false;toolbox.visible=false;cable.visible=false;socket.visible=true;switchObj.visible=true;lamp.visible=true;bulb.material=mat(0x5b6570);glow.intensity=0;}else{hasTools=true;hasCable=true;installedSocket=true;installedSwitch=true;lampOn=false;toolbox.visible=false;cable.visible=false;socket.visible=true;switchObj.visible=true;lamp.visible=true;bulb.material=mat(0x5b6570);glow.intensity=0;}updateHud();showMessage('FASE '+(stage+1),'Nova missão carregada. Explore o ambiente usando o joystick.');}
 function distanceTo(item){return Math.hypot(player.position.x-item.x,player.position.z-item.z)}
 function nearestItem(){let best=null,dist=99;for(const item of interactables){const d=distanceTo(item);if(d<dist){best=item;dist=d}}return dist<2.0?best:null}
-function interact(){if(done)return;nearest=nearestItem();const target=goals[goalIndex]?.target;if(!nearest){hint.textContent='Chegue mais perto do objeto indicado.';return}if(nearest.name!==target){hint.textContent='Esse objeto não faz parte do objetivo atual. Siga o marcador amarelo.';return}
+function interact(){if(done)return;nearest=nearestItem();const target=currentGoals()[goalIndex]?.target;if(!nearest){hint.textContent='Chegue mais perto do objeto indicado.';return}if(nearest.name!==target){hint.textContent='Esse objeto não faz parte do objetivo atual. Siga o marcador amarelo.';return}
 if(target==='maleta'){hasTools=true;toolbox.visible=false;completeGoal();return}
 if(target==='cabo'){if(!hasTools){hint.textContent='Primeiro pegue a maleta de ferramentas.';return}hasCable=true;cable.visible=false;completeGoal();return}
 if(target==='tomada'){if(!hasCable){hint.textContent='Colete o cabo didático antes de instalar.';return}installedSocket=true;socket.scale.set(1.12,1.12,1.12);socket.children[0].material=mat(0xb8e5c8);completeGoal();return}
@@ -124,8 +123,8 @@ const ca=Math.cos(cameraAngle),sa=Math.sin(cameraAngle);const wx=(ix*ca+iz*sa),w
 if(len>.08){player.position.x+=wx*speed*dt;player.position.z+=wz*speed*dt;player.rotation.y=Math.atan2(wx,wz);arms[0].rotation.x=Math.sin(performance.now()*.012)*.25;arms[1].rotation.x=-arms[0].rotation.x}
 player.position.x=THREE.MathUtils.clamp(player.position.x,-7.5,7.5);player.position.z=THREE.MathUtils.clamp(player.position.z,-6,6);
 playerMarker.position.set(player.position.x,.06,player.position.z);
-nearest=nearestItem();const target=goals[goalIndex]?.target;const targetItem=interactables.find(i=>i.name===target);for(const i of interactables){const obj=i.obj;obj.traverse(o=>{if(o.isMesh&&o.material&&o.material.emissive){o.material.emissive.setHex(i===targetItem?0x493500:0x000000)}})}
-if(nearest&&nearest.name===target){hint.textContent='Perto de '+nearest.name+'. Toque em '+(goals[goalIndex]?.action||'INTERAGIR')+'.'}else if(!joy.active){hint.textContent='Use o joystick para andar e os botões para girar a câmera.'}
+nearest=nearestItem();const target=currentGoals()[goalIndex]?.target;const targetItem=interactables.find(i=>i.name===target);for(const i of interactables){const obj=i.obj;obj.traverse(o=>{if(o.isMesh&&o.material&&o.material.emissive){o.material.emissive.setHex(i===targetItem?0x493500:0x000000)}})}
+if(nearest&&nearest.name===target){hint.textContent='Perto de '+nearest.name+'. Toque em '+(currentGoals()[goalIndex]?.action||'INTERAGIR')+'.'}else if(!joy.active){hint.textContent='Use o joystick para andar e os botões para girar a câmera.'}
 camera.position.set(player.position.x+Math.sin(cameraAngle)*12,12,player.position.z+Math.cos(cameraAngle)*12);camera.lookAt(player.position.x,0,player.position.z);
 }
 function animate(now){requestAnimationFrame(animate);const dt=Math.min((now-last)/1000,.04);last=now;update(dt);renderer.render(scene,camera)}
